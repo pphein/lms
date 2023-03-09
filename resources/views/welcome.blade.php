@@ -10,7 +10,7 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
-        @vite(['resources/js/app.js'])
+        @vite(['resources/js/app.js', 'resources/css/app.css'])
     </head>
     <body class="antialiased">
     <div id="app">
@@ -35,13 +35,13 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" data-bs-toggle="modal" data-bs-target="#exampleModal" href="">{{ __('Login') }}</a>
+                                    <a class="nav-link" data-bs-toggle="modal" data-bs-target="#loginModal" href="">{{ __('Login') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" data-bs-toggle="modal" data-bs-target="#registerModal" href="">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -73,49 +73,41 @@
                 <strong>{{ $message }}</strong>
             </div>        
         @enderror
-        
-        <div class="col-md-6">
-                @error('email')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
         <main class="">
             <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-indicators">
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 3"></button>
+                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
                 </div>
-                <div class="carousel-inner m-0 vh-100">
+                <div class="carousel-inner drk m-0 vh-100">
                     <div class="carousel-item active">
-                    <img src="{{url('sliders/slider1.jpg')}}" class="d-block w-100" alt="Slider One">
-                    <div class="carousel-caption d-flex flex-column justify-content-center h-100">
+                    <img src="{{url('sliders/slider1.jpg')}}" class="d-block vh-100" alt="Slider One">
+                    <div class="carousel-caption">
                         <h3>First slide label</h3>
                         <p>Some representative placeholder content for the first slide.</p>
                     </div>
                     </div>
                     <div class="carousel-item">
-                    <img src="{{url('sliders/slider2.jpg')}}" class="d-block w-100" alt="Slider Two">
-                    <div class="carousel-caption d-flex flex-column justify-content-center h-100">
+                    <img src="{{url('sliders/slider2.jpg')}}" class="d-block vh-100" alt="Slider Two">
+                    <div class="carousel-caption">
                         <h3>Second slide label</h3>
                         <p>Some representative placeholder content for the second slide.</p>
                     </div>
                     </div>
                     <div class="carousel-item">
-                    <img src="{{url('sliders/slider3.jpg')}}" class="d-block w-100" alt="Slider Three">
-                    <div class="carousel-caption d-flex flex-column justify-content-center h-100">
+                    <img src="{{url('sliders/slider3.jpg')}}" class="d-block vh-100" alt="Slider Three">
+                    <div class="carousel-caption">
                         <h3>Third slide label</h3>
                         <p>Some representative placeholder content for the third slide.</p>
                     </div>
                     </div>
                     <div class="carousel-item">
-                    <img src="{{url('sliders/slider4.jpg')}}" class="d-block w-100" alt="Slider Four">
-                    <div class="carousel-caption d-flex flex-column justify-content-center h-100">
-                        <h3>Third slide label</h3>
-                        <p>Some representative placeholder content for the third slide.</p>
+                    <img src="{{url('sliders/slider4.jpg')}}" class="d-block vh-100" alt="Slider Four">
+                    <div class="carousel-caption">
+                        <h3>Fourth slide label</h3>
+                        <p>Some representative placeholder content for the fourth slide.</p>
                     </div>
                     </div>
                 </div>
@@ -129,67 +121,140 @@
                 </button>
             </div>
         </main>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">{{ __('Login') }}<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
-                        <div class="modal-body">
-                            <div class="myform bg-dark">
-                                <h1 class="text-center">Login Form</h1>
-                                <form method="POST" action="{{ route('login') }}">
-                                    @csrf
-                                    <div class="row mb-3">
-                                        <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-                                        <div class="col-md-6">
-                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                                            @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">{{ __('Login') }}<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                    <div class="modal-body">
+                        <div class="myform bg-light">
+                            <h1 class="text-center">Login Form</h1>
+                            <form method="POST" action="{{ route('login') }}">
+                                @csrf
+                                <div class="row mb-4">
+                                    <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                                    <div class="col-md-6">
+                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
-                                    <div class="row mb-3">
-                                        <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-                                        <div class="col-md-6">
-                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                                            @error('password')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                                    <div class="col-md-6">
+                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
-                                    <div class="row mb-3">
-                                        <div class="col-md-6 offset-md-4">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-6 offset-md-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-                                                <label class="form-check-label" for="remember">
-                                                    {{ __('Remember Me') }}
-                                                </label>
-                                            </div>
+                                            <label class="form-check-label" for="remember">
+                                                {{ __('Remember Me') }}
+                                            </label>
                                         </div>
                                     </div>
-                                    <div class="row mb-0">
-                                        <div class="col-md-8 offset-md-4">
-                                            <button type="submit" class="btn btn-primary">
-                                                {{ __('Login') }}
-                                            </button>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-8 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Login') }}
+                                        </button>
 
-                                            @if (Route::has('password.request'))
-                                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                                    {{ __('Forgot Your Password?') }}
-                                                </a>
-                                            @endif
-                                        </div>
+                                        @if (Route::has('password.request'))
+                                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                                                {{ __('Forgot Your Password?') }}
+                                            </a>
+                                        @endif
                                     </div>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">                    
+                    <div class="modal-header">{{ __('Register') }}<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+                    <div class="modal-body">
+                        <div class="myform bg-light">
+                            <h1 class="text-center">Registration Form</h1>
+                            <form method="POST" action="{{ route('register') }}">
+                                @csrf
+
+                                <div class="row mb-5">
+                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+
+                                    <div class="col-md-6">
+                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="row mb-5">
+                                    <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+
+                                    <div class="col-md-6">
+                                        <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="row mb-5">
+                                    <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+
+                                    <div class="col-md-6">
+                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                <div class="row mb-5">
+                                    <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirm Password') }}</label>
+
+                                    <div class="col-md-6">
+                                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-5">
+                                    <div class="col-md-6 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Register') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
     </div>
     </body>
 </html>
