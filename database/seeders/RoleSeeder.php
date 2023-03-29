@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Log;
 
 class RoleSeeder extends Seeder
 {
+    protected $depends = [
+        StatusSeeder::class
+    ];
+
     public function __construct(
         private Role $model
     ) {
