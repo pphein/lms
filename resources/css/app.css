@@ -1,29 +1,34 @@
 .drk:after {
-    content: "";
-    display: block;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: black;
-    opacity: 0.4;
-    z-index: 1 !important;
-  }
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: black;
+  opacity: 0.4;
+  z-index: 1 !important;
+}
 
-  .carousel-caption {
-    left: 0 !important;
-    top: 45vh;
-    position: relative !important;
-    z-index: 2 !important;
-  }
+.carousel-caption {
+  left: 0 !important;
+  right: 0 !important;
+  top: 45vh;
+  /* position: relative !important; */
+  z-index: 2 !important;
+}
 
-  .carousel .carousel-item img{
-    left: -9999px;  /*important */
-    right: -9999px;  /*important */
-    margin: 0 auto;  /*important */
-    max-width: none;  /*important */
-    min-width: 100%;
-    min-height: 100%;
-    position: absolute;
- }
+.carousel .carousel-item img {
+  left: -9999px;
+  /*important */
+  right: -9999px;
+  /*important */
+  margin: 0 auto;
+  /*important */
+  max-width: none;
+  /*important */
+  min-width: 100%;
+  min-height: 100%;
+  position: absolute;
+}

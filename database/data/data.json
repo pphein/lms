@@ -1,0 +1,38 @@
+{
+    "roles": [
+        {
+            "identifier": "admin",
+            "name": "Admin Role"
+        },
+        {
+            "identifier": "teacher",
+            "name": "Teacher Role"
+        },
+        {
+            "identifier": "student",
+            "name": "Student Role"
+        },
+        {
+            "identifier": "guest",
+            "name": "Guest Role"
+        },
+        {
+            "identifier": "member",
+            "name": "Member Role"
+        }
+    ],
+    "statuses": [
+        {
+            "identifier": "active",
+            "name": "Active User"
+        },
+        {
+            "identifier": "inactive",
+            "name": "Inactive User"
+        },
+        {
+            "identifier": "blacklisted",
+            "name": "Blacklisted User"
+        }
+    ]
+}
