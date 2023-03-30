@@ -18,8 +18,9 @@ return new class extends Migration
             $table->integer('author_id');
             $table->integer('publisher_id');
             $table->integer('edition_id');
-            $table->timestamp('published_date');
+            $table->timestamp('published_date')->nullable();
             $table->integer('price');
+            $table->integer("category_id");
             $table->timestamps();
         });
     }

@@ -4,16 +4,10 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    protected $depends = [
-        StatusSeeder::class
-    ];
-
-
     /**
      * Seed the application's database.
      */
@@ -28,7 +22,12 @@ class DatabaseSeeder extends Seeder
         // User::factory(1)->create();
         $this->call([
             StatusSeeder::class,
-            RoleSeeder::class
+            RoleSeeder::class,
+            AuthorSeeder::class,
+            PublisherSeeder::class,
+            EditionSeeder::class,
+            CategorySeeder::class,
+            BookSeeder::class
         ]);
     }
 }
