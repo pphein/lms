@@ -18,9 +18,9 @@ class AuthorSeeder extends Seeder
     {
         try {
             $authors = json_decode(
-                file_get_contents(__DIR__ . '/../data/data.json'),
+                file_get_contents(__DIR__ . '/../data/authors.json'),
                 true
-            )['authors'];
+            );
             foreach ($authors as $author) {
                 $this->model::firstOrCreate($author);
             }

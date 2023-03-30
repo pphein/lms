@@ -18,9 +18,9 @@ class PublisherSeeder extends Seeder
     {
         try {
             $publishers = json_decode(
-                file_get_contents(__DIR__ . '/../data/data.json'),
+                file_get_contents(__DIR__ . '/../data/publishers.json'),
                 true
-            )['publishers'];
+            );
             foreach ($publishers as $publisher) {
                 $this->model::firstOrCreate($publisher);
             }

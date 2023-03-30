@@ -18,9 +18,9 @@ class StatusSeeder extends Seeder
     {
         try {
             $statuses = json_decode(
-                file_get_contents(__DIR__ . '/../data/data.json'),
+                file_get_contents(__DIR__ . '/../data/statuses.json'),
                 true
-            )['statuses'];
+            );
             foreach ($statuses as $status) {
                 $this->model::firstOrCreate($status);
             }

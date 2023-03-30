@@ -22,9 +22,9 @@ class RoleSeeder extends Seeder
     {
         try {
             $roles = json_decode(
-                file_get_contents(__DIR__ . '/../data/data.json'),
+                file_get_contents(__DIR__ . '/../data/roles.json'),
                 true
-            )['roles'];
+            );
             foreach ($roles as $role) {
                 $this->model::firstOrCreate($role);
             }

@@ -1,0 +1,14 @@
+[
+    {
+        "identifier": "active",
+        "name": "Active User"
+    },
+    {
+        "identifier": "inactive",
+        "name": "Inactive User"
+    },
+    {
+        "identifier": "blacklisted",
+        "name": "Blacklisted User"
+    }
+]

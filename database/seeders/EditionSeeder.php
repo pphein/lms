@@ -18,9 +18,9 @@ class EditionSeeder extends Seeder
     {
         try {
             $editions = json_decode(
-                file_get_contents(__DIR__ . '/../data/data.json'),
+                file_get_contents(__DIR__ . '/../data/editions.json'),
                 true
-            )['editions'];
+            );
             foreach ($editions as $edition) {
                 $this->model::firstOrCreate($edition);
             }

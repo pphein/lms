@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Author;
 use Exception;
 use App\Models\Book;
-use App\Models\Category;
+use App\Models\Author;
 use App\Models\Edition;
+use App\Models\Category;
 use App\Models\Publisher;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Log;
@@ -33,9 +33,9 @@ class BookSeeder extends Seeder
     {
         try {
             $books = json_decode(
-                file_get_contents(__DIR__ . '/../data/data.json'),
+                file_get_contents(__DIR__ . '/../data/books.json'),
                 true
-            )['books'];
+            );
             foreach ($books as $book) {
                 $data = [
                     "title" => $book['title'],

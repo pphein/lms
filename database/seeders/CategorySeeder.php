@@ -18,9 +18,9 @@ class CategorySeeder extends Seeder
     {
         try {
             $categorys = json_decode(
-                file_get_contents(__DIR__ . '/../data/data.json'),
+                file_get_contents(__DIR__ . '/../data/categories.json'),
                 true
-            )['categories'];
+            );
             foreach ($categorys as $category) {
                 $this->model::firstOrCreate($category);
             }
