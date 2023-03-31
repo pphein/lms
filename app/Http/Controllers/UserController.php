@@ -2,24 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function __construct(
+        private User $model
+    ) {
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return $this->model->get();
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        // return $this->model->create($request->toArray());
     }
 
     /**
@@ -27,7 +32,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $this->model->create($request->toArray());
     }
 
     /**
@@ -35,7 +40,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return $this->model->findOrFail($id);
     }
 
     /**
@@ -51,7 +56,7 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return $this->model->findOrFail($id)->update($request->toArray());
     }
 
     /**

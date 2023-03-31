@@ -24,7 +24,7 @@ class AuthorController extends Controller
      */
     public function create(Request $request)
     {
-        return $this->model->create($request->toArray());
+        // return $this->model->create($request->toArray());
     }
 
     /**
