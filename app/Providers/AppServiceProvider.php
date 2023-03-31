@@ -11,9 +11,14 @@ use App\Services\EditionService;
 use App\Services\CategoryService;
 use App\Services\PublisherService;
 use App\Repositories\BookRepository;
+use App\Repositories\RoleRepository;
+use App\Repositories\UserRepository;
 use App\Repositories\AuthorRepository;
+use App\Repositories\StatusRepository;
+use App\Repositories\EditionRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\CategoryRepository;
+use App\Repositories\PublisherRepository;
 use App\Contracts\Services\BookServiceInterface;
 use App\Contracts\Services\RoleServiceInterface;
 use App\Contracts\Services\UserServiceInterface;
@@ -23,18 +28,13 @@ use App\Contracts\Services\EditionServiceInterface;
 use App\Contracts\Services\CategoryServiceInterface;
 use App\Contracts\Services\PublisherServiceInterface;
 use App\Contracts\Repositories\BookRepositoryInterface;
-use App\Contracts\Repositories\AuthorRepositoryInterface;
-use App\Contracts\Repositories\CategoryRepositoryInterface;
-use App\Contracts\Repositories\EditionRepositoryInterface;
-use App\Contracts\Repositories\PublisherRepositoryInterface;
 use App\Contracts\Repositories\RoleRepositoryInterface;
-use App\Contracts\Repositories\StatusRepositoryInterface;
 use App\Contracts\Repositories\UserRepositoryInterface;
-use App\Repositories\EditionRepository;
-use App\Repositories\PublisherRepository;
-use App\Repositories\RoleRepository;
-use App\Repositories\StatusRepository;
-use App\Repositories\UserRepository;
+use App\Contracts\Repositories\AuthorRepositoryInterface;
+use App\Contracts\Repositories\StatusRepositoryInterface;
+use App\Contracts\Repositories\EditionRepositoryInterface;
+use App\Contracts\Repositories\CategoryRepositoryInterface;
+use App\Contracts\Repositories\PublisherRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
