@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Contracts\Services\BookServiceInterface;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
     public function __construct(
-        private Book $model
+        private BookServiceInterface $service
     ) {
     }
     /**
@@ -16,7 +16,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        return $this->model->get();
+        return $this->service->getList();
     }
 
     /**
@@ -24,7 +24,7 @@ class BookController extends Controller
      */
     public function create(Request $request)
     {
-        // return $this->model->create($request->toArray());
+        // return $this->service->create($request->toArray());
     }
 
     /**
@@ -32,7 +32,7 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->model->create($request->toArray());
+        return $this->service->createBook($request->toArray());
     }
 
     /**
@@ -40,7 +40,7 @@ class BookController extends Controller
      */
     public function show(string $id)
     {
-        return $this->model->findOrFail($id);
+        return $this->service->getBookById($id);
     }
 
     /**
@@ -56,7 +56,7 @@ class BookController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return $this->model->findOrFail($id)->update($request->toArray());
+        return $this->service->updateBookById($id, $request->toArray());
     }
 
     /**
