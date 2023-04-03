@@ -49,23 +49,30 @@ class BookService implements BookServiceInterface
         return true;
     }
 
-    public function getBookByTitle(string $title)
+    // public function getBookByTitle(string $title)
+    // {
+    //     $result = $this->bookRepo->getBookByTitle($title);
+
+    //     return new BookResource($result);
+    // }
+
+    // public function getBookByAuthor(string $author)
+    // {
+    //     $result = $this->bookRepo->getBookByAuthor($author);
+
+    //     return new BookResource($result);
+    // }
+
+    // public function getBookByPublisher(string $publisher)
+    // {
+    //     $result = $this->bookRepo->getBookByPublisher($publisher);
+
+    //     return new BookResource($result);
+    // }
+
+    public function searchBook(string $key, string $value)
     {
-        $result = $this->bookRepo->getBookByTitle($title);
-
-        return new BookResource($result);
-    }
-
-    public function getBookByAuthor(string $author)
-    {
-        $result = $this->bookRepo->getBookByAuthor($author);
-
-        return new BookResource($result);
-    }
-
-    public function getBookByPublisher(string $publisher)
-    {
-        $result = $this->bookRepo->getBookByPublisher($publisher);
+        $result = $this->bookRepo->searchBook($key, $value);
 
         return new BookResource($result);
     }

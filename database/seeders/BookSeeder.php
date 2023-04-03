@@ -40,11 +40,11 @@ class BookSeeder extends Seeder
                 $data = [
                     "title" => $book['title'],
                     "summary" => $book['summary'],
-                    "author_id" => $this->author->where('pen_name', $book['author'])->first()?->id,
-                    "publisher_id" => $this->publisher->where('name', $book['publisher'])->first()?->id,
-                    "edition_id" => $this->edition->where('name', $book['edition'])->first()?->id,
+                    "author_id" => $this->author->firstOrCreate(['pen_name' => $book['author']])?->id,
+                    "publisher_id" => $this->publisher->firstOrCreate(['name' => $book['publisher']])?->id,
+                    "edition_id" => $this->edition->firstOrCreate(['name' => $book['edition']])?->id,
                     "price" => $book['price'],
-                    "category_id" => $this->category->where('name', $book['category'])->first()?->id,
+                    "category_id" => $this->category->firstOrCreate(['name' => $book['category']])?->id,
                 ];
                 $this->model::firstOrCreate($data);
             }

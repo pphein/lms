@@ -66,4 +66,14 @@ class BookController extends Controller
     {
         //
     }
+
+    // public function getByTitle(string $title)
+    // {
+    //     return $this->service->getBookByTitle($title);
+    // }
+
+    public function searchBook(string $key, string $value)
+    {
+        return $this->service->searchBook($key, $value);
+    }
 }
