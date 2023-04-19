@@ -44,5 +44,9 @@ Route::resource('users', UserController::class);
 Route::prefix('books')
     ->controller(BookController::class)
     ->group(function () {
-        Route::get('/{key}/{value}', 'searchBook');
+        // Route::get('/{key}/{value}', 'searchBook');
+        Route::get('/titles', 'getBookTitleList');
+        Route::get('/authors', 'getBookTitleList');
+        Route::get('/publishers', 'getBookTitleList');
+        Route::get('/editions', 'getBookTitleList');
     });
