@@ -18,6 +18,22 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     @vite(['resources/js/app.js', 'resources/js/sidebar.js', 'resources/css/custom.css', 'resources/css/app.css'])
+
+    <style>
+        article {
+            width: 200px;
+            padding: 15px;
+            margin: 20px;
+            position: relative;
+            user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-user-select: none;
+            border: thin solid #cbcbcb;
+            border-radius: 5px;
+            display: inline-block;
+        }
+    </style>
 </head>
 
 <body id='body-pd' class="antialiased">

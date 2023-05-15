@@ -75,73 +75,28 @@
         </nav>
     </div>
 </header>
-<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
-    </div>
-    <div class="carousel-inner drk m-0 vh-100">
-        <div class="carousel-item active">
-            <img src="{{url('sliders/slider1.jpg')}}" class="d-block vh-100" alt="Slider One">
-            <div class="carousel-caption">
-                <h3>First slide label</h3>
-                <p>Some representative placeholder content for the first slide.</p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img src="{{url('sliders/slider2.jpg')}}" class="d-block vh-100" alt="Slider Two">
-            <div class="carousel-caption">
-                <h3>Second slide label</h3>
-                <p>Some representative placeholder content for the second slide.</p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img src="{{url('sliders/slider3.jpg')}}" class="d-block vh-100" alt="Slider Three">
-            <div class="carousel-caption">
-                <h3>Third slide label</h3>
-                <p>Some representative placeholder content for the third slide.</p>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img src="{{url('sliders/slider4.jpg')}}" class="d-block vh-100" alt="Slider Four">
-            <div class="carousel-caption">
-                <h3>Fourth slide label</h3>
-                <p>Some representative placeholder content for the fourth slide.</p>
-            </div>
-        </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-    </button>
-</div>
-<section>
-    <h1>Categories</h1>
-    <table id="categories_table" class="table table-striped">
-    </table>
-</section>
-<section>
-    <h1>Books</h1>
-    <table id="books_table" class="table table-striped">
-    </table>
-</section>
-<section>
-    <h1>Authors</h1>
-    <table id="authors_table" class="table table-striped">
-    </table>
-</section>
-<section>
-    <h1>Publishers</h1>
-    <table id="publishers_table" class="table table-striped">
-    </table>
-</section>
-<main>
+
+<main class="mt-4">
+    <section class="pt-5">
+        <h1>Categories</h1>
+        <table id="categories_table" class="table table-striped">
+        </table>
+    </section>
+    <section class="pt-5">
+        <h1>Books</h1>
+        <table id="books_table" class="table table-striped">
+        </table>
+    </section>
+    <section class="pt-5">
+        <h1>Authors</h1>
+        <table id="authors_table" class="table table-striped">
+        </table>
+    </section>
+    <section class="pt-5">
+        <h1>Publishers</h1>
+        <table id="publishers_table" class="table table-striped">
+        </table>
+    </section>
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
@@ -426,9 +381,69 @@
             </div>
         </div>
     </div>
-
 </main>
-<ul></ul>
+<div class="modal fade" id="book" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">Book<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+            <div class="modal-body">
+                <div class="myform bg-light">
+                    <h1 class="text-center">ကိုယ်ကျင့်အဘိဓမ္မာ</h1>
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+                        <div class="row mb-4">
+                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6 offset-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                                    <label class="form-check-label" for="remember">
+                                        {{ __('Remember Me') }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-8 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Login') }}
+                                </button>
+
+                                @if (Route::has('password.request'))
+                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    {{ __('Forgot Your Password?') }}
+                                </a>
+                                @endif
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="dspBookList"></div>
 <footer class="text-muted py-5">
     <div class="container">
         <p class="float-end mb-1">
@@ -472,16 +487,62 @@
                         <td>${r.author_id}</td>
                         <td>${r.price} MMK</td>
                         <td>
-                        <button type="button" class="btn btn-outline-success"><i class="fa-solid fa-check"></i></button>
-                        <button type="button" class="btn btn-outline-primary"><i class="fa-solid fa-pencil"></i></button>
-                        <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                        <button type="button" class="btn btn-sm btn-outline-success" onClick="showBook()"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pencil"></i></button>
+                        <button type="button" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>`;
+            let objBook = new Book(r.id, r.title, r.summary, r.author_id, r.price);
+            showBookList(objBook);
         });
 
         tab += `</tbody>`;
         // Setting innerHTML as tab variable
         document.getElementById("books_table").innerHTML = tab;
+
+    }
+
+    let arrBooks = [];
+
+    function Book(bId, bTitle, bSummary, bAuthor, bPrice) {
+        this.bookId = bId;
+        this.bookTitle = bTitle;
+        this.bookSummary = bSummary;
+        this.bookAuthor = bAuthor;
+        this.bookPrice = bPrice;
+    }
+
+    function showBookList(objBook) {
+        //Create a new product content
+        let newProductContent = document.createElement("article");
+        newProductContent.innerHTML = "<p>" + objBook.bookTitle + "</p>" +
+            "<p>" + objBook.bookSummary + "</p>" +
+            "<p>" + objBook.bookAuthor + "</p>" +
+            "<p>$" + objBook.bookPrice + "</p>";
+
+        //Create a new button within the product content
+        let newProductButton = document.createElement("button");
+        newProductButton.innerHTML = "See info";
+
+        //Appen button to content
+        newProductContent.appendChild(newProductButton);
+
+        //Append all new elements into the parent element
+        let parentElement = document.getElementById("dspBookList");
+        parentElement.appendChild(newProductContent);
+
+        //Passing this object as the argument to a onclick function
+        newProductButton.addEventListener("click", function() {
+            showBookInfo(objBook);
+        });
+    }
+
+    function showBookInfo(objBook) {
+        alert(objBook.bookTitle);
+    }
+
+    function showBook(book) {
+        alert(book.title);
     }
 
     fetch('/api/categories')
@@ -512,9 +573,9 @@
                         <th scope="row">${r.id}</th>
                         <td>${r.name}</td>
                         <td>
-                        <button type="button" class="btn btn-outline-success"><i class="fa-solid fa-check"></i></button>
-                        <button type="button" class="btn btn-outline-primary"><i class="fa-solid fa-pencil"></i></button>
-                        <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                        <button type="button" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pencil"></i></button>
+                        <button type="button" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>`;
         });
@@ -560,9 +621,9 @@
                         <td>${r.address ?? ''}</td>
                         <td>${r.phone_number ?? ''}</td>
                         <td>
-                        <button type="button" class="btn btn-outline-success"><i class="fa-solid fa-check"></i></button>
-                        <button type="button" class="btn btn-outline-primary"><i class="fa-solid fa-pencil"></i></button>
-                        <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                        <button type="button" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pencil"></i></button>
+                        <button type="button" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>`;
         });
@@ -604,9 +665,9 @@
                         <td>${r.address ?? ''}</td>
                         <td>${r.phone_number ?? ''}</td>
                         <td>
-                        <button type="button" class="btn btn-outline-success"><i class="fa-solid fa-check"></i></button>
-                        <button type="button" class="btn btn-outline-primary"><i class="fa-solid fa-pencil"></i></button>
-                        <button type="button" class="btn btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                        <button type="button" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pencil"></i></button>
+                        <button type="button" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>`;
         });
