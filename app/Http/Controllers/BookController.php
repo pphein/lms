@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Contracts\Services\BookServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class BookController extends Controller
 {
@@ -16,7 +17,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        return $this->service->getList();
+        $result = $this->service->getList();
+        return $result;
     }
 
     /**

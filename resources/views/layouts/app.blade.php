@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+    <meta charset="UTF-8">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -37,10 +38,8 @@
 </head>
 
 <body id='body-pd' class="antialiased">
-    <div id="app">
-        <main class="container-fluid">
-            @yield('content')
-        </main>
+    <div id="ip">
+        @yield('content')
     </div>
 </body>
 

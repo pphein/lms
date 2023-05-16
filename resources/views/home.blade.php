@@ -382,15 +382,11 @@
         </div>
     </div>
 </main>
-<div class="modal fade" id="view" tabindex="-1" aria-labelledby="view" aria-hidden="true">
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">Hello<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
-            <div class="modal-body">
-                <div class="myform bg-light">
-                    <h1 class="text-center">Login Form</h1>
-                </div>
-            </div>
+            <div class="modal-header"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+            <div class="modal-body"></div>
         </div>
     </div>
 </div>
@@ -431,8 +427,12 @@
 
         // Loop to access all rows
         data.forEach(r => {
-            document.addEventListener('click', function() {
-                showBookInfo(objBook);
+            // console.log(JSON.stringify(r));
+            var jsonString = JSON.stringify(resizeTo, function(key, value) {
+                if (typeof value === "string") {
+                    return value.replace(/ /g, "\u0020");
+                }
+                return value;
             });
             tab += `<tr>
                         <th scope="row">${r.id}</th>
@@ -441,17 +441,13 @@
                         <td>${r.author_id}</td>
                         <td>${r.price} MMK</td>
                         <td>
-                        <button type="button" class="btn btn-sm btn-outline-success" data-name="hello" data-bs-toggle="modal" data-bs-target="#view"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="btn btn-sm btn-outline-success" data-object='{"name": "ပြည့်ဖြိုးဟိန်း", "age": 24, "profile": "ကျွန်တော်သည် ကျောင်းဆရာတစ်ယောက် ဖြစ်ပါသည်"}' onClick="show(this.getAttribute('data-object'))"><i class="fa-solid fa-check"></i></button>
                         <button type="button" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pencil"></i></button>
                         <button type="button" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>`;
             let objBook = new Book(r.id, r.title, r.summary, r.author_id, r.price);
             showBookList(objBook);
-
-            // document.addEventListener('click', function(event) {
-            //     showBookInfo(event);
-            // });
         });
 
         tab += `</tbody>`;
@@ -459,11 +455,10 @@
         document.getElementById("books_table").innerHTML = tab;
     }
 
-
-    document.addEventListener('click', function(event) {
-        showBookInfo(event);
-    });
-    let arrBooks = [];
+    function show(book) {
+        // var obj = JSON.parse(book);
+        alert(book);
+    }
 
     function Book(bId, bTitle, bSummary, bAuthor, bPrice) {
         this.bookId = bId;
@@ -483,6 +478,9 @@
 
         //Create a new button within the product content
         let newProductButton = document.createElement("button");
+        newProductButton.classList.add('nav-link');
+        newProductButton.setAttribute('data-bs-toggle', 'modal');
+        newProductButton.setAttribute('data-bs-target', '#loginModal');
         newProductButton.innerHTML = "See info";
 
         //Append button to content
@@ -498,17 +496,35 @@
         });
     }
 
-    function showBookInfo(event) {
-        // var name = event.target.dataset.name;
-        // document.getElementById('view').innerHTML = `<div class="modal-dialog modal-dialog-centered">
-        // <div class="modal-content">
-        // ${name}
-        // </div>
-        // </div>`;
-        var data = event.target;
-        var name = data.dataset.name;
+    function showBookInfo(objBook) {
+        var view = document.getElementById('loginModal');
+        view.classList.add('show');
+        // modal.removeAttribute('aria-hidden');
+        view.setAttribute('aria-modal', 'true');
+        view.setAttribute('role', 'dialog');
+        view.style.display = 'block';
+        // view.innerHTML = `<div class="modal-dialog modal-dialog-centered">
+        //         <div class="modal-content">
+        //             <div class="modal-header">${objBook.bookTitle}<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+        //             <div class="modal-body">
+        //                 <div class="myform bg-light">
+        //                     <h1 class="text-center">Login Form</h1>
+        //                 </div>
+        //             </div>
+        //         </div>
+        //     </div>`;
+        var content = `<div class="bg-light">
+                             <h1 class="text-center">${objBook.bookTitle}</h1>
+                    </div>`;
+        document.querySelector('.modal-body').innerHTML = content;
+    }
 
-        alert(name);
+    function test() {
+        var modal = document.getElementById('loginModal');
+        modal.classList.remove('show');
+        modal.style.display = 'none';
+        modal.removeAttribute('aria-modal');
+        modal.setAttribute('aria-hidden', 'true');
     }
 
     fetch('/api/categories')
