@@ -382,62 +382,13 @@
         </div>
     </div>
 </main>
-<div class="modal fade" id="book" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+<div class="modal fade" id="view" tabindex="-1" aria-labelledby="view" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <div class="modal-header">Book<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+            <div class="modal-header">Hello<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
             <div class="modal-body">
                 <div class="myform bg-light">
-                    <h1 class="text-center">ကိုယ်ကျင့်အဘိဓမ္မာ</h1>
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-                        <div class="row mb-4">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                                @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="row mb-4">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-                                @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
+                    <h1 class="text-center">Login Form</h1>
                 </div>
             </div>
         </div>
@@ -480,6 +431,9 @@
 
         // Loop to access all rows
         data.forEach(r => {
+            document.addEventListener('click', function() {
+                showBookInfo(objBook);
+            });
             tab += `<tr>
                         <th scope="row">${r.id}</th>
                         <td>${r.title}</td>
@@ -487,21 +441,28 @@
                         <td>${r.author_id}</td>
                         <td>${r.price} MMK</td>
                         <td>
-                        <button type="button" class="btn btn-sm btn-outline-success" onClick="showBook()"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="btn btn-sm btn-outline-success" data-name="hello" data-bs-toggle="modal" data-bs-target="#view"><i class="fa-solid fa-check"></i></button>
                         <button type="button" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pencil"></i></button>
                         <button type="button" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>`;
             let objBook = new Book(r.id, r.title, r.summary, r.author_id, r.price);
             showBookList(objBook);
+
+            // document.addEventListener('click', function(event) {
+            //     showBookInfo(event);
+            // });
         });
 
         tab += `</tbody>`;
         // Setting innerHTML as tab variable
         document.getElementById("books_table").innerHTML = tab;
-
     }
 
+
+    document.addEventListener('click', function(event) {
+        showBookInfo(event);
+    });
     let arrBooks = [];
 
     function Book(bId, bTitle, bSummary, bAuthor, bPrice) {
@@ -524,7 +485,7 @@
         let newProductButton = document.createElement("button");
         newProductButton.innerHTML = "See info";
 
-        //Appen button to content
+        //Append button to content
         newProductContent.appendChild(newProductButton);
 
         //Append all new elements into the parent element
@@ -537,12 +498,17 @@
         });
     }
 
-    function showBookInfo(objBook) {
-        alert(objBook.bookTitle);
-    }
+    function showBookInfo(event) {
+        // var name = event.target.dataset.name;
+        // document.getElementById('view').innerHTML = `<div class="modal-dialog modal-dialog-centered">
+        // <div class="modal-content">
+        // ${name}
+        // </div>
+        // </div>`;
+        var data = event.target;
+        var name = data.dataset.name;
 
-    function showBook(book) {
-        alert(book.title);
+        alert(name);
     }
 
     fetch('/api/categories')
@@ -621,7 +587,7 @@
                         <td>${r.address ?? ''}</td>
                         <td>${r.phone_number ?? ''}</td>
                         <td>
-                        <button type="button" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="btn btn-sm btn-outline-success" onClick="show()"><i class="fa-solid fa-check"></i></button>
                         <button type="button" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pencil"></i></button>
                         <button type="button" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                         </td>
