@@ -33,7 +33,8 @@ class BookRepository implements BookRepositoryInterface
 
     public function updateBookById(int $id, array $data)
     {
-        return $this->model::findOrFail($id)->update($data);
+        $this->model::findOrFail($id)->update($data);
+        return $this->model::findOrFail($id)->refresh();
     }
 
     // public function getBookByTitle(string $title)

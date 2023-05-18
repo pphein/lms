@@ -9,6 +9,10 @@ class Book extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title'
+    ];
+
     public function getAuthorIdAttribute(int $id)
     {
         return Author::findOrFail($id)?->pen_name;

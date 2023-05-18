@@ -436,7 +436,7 @@
                         <td>${r.price} MMK</td>
                         <td>
                         <button type="button" class="view-book btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author_id": "${r.author_id}","price":"${r.price}"}' onClick="show(this.getAttribute('data-object'))"><i class="fa-solid fa-check"></i></button>
-                        <button type="button" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pencil"></i></button>
+                        <button type="button" class="edit-book btn btn-sm btn-outline-primary" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author_id": "${r.author_id}","price":"${r.price}"}' onClick="edit(this.getAttribute('data-object'))"><i class="fa-solid fa-pencil"></i></button>
                         <button type="button" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>`;
@@ -448,13 +448,22 @@
         // Setting innerHTML as tab variable
         document.getElementById("books_table").innerHTML = tab;
 
-        var buttons = document.querySelectorAll('.view-book');
+        var showButtons = document.querySelectorAll('.view-book');
 
-        for (var i = 0; i < buttons.length; i++) {
-            var button = buttons[i];
-            button.removeAttribute('type');
-            button.setAttribute('data-bs-toggle', 'modal');
-            button.setAttribute('data-bs-target', '#loginModal');
+        for (var i = 0; i < showButtons.length; i++) {
+            var showButton = showButtons[i];
+            showButton.removeAttribute('type');
+            showButton.setAttribute('data-bs-toggle', 'modal');
+            showButton.setAttribute('data-bs-target', '#loginModal');
+        }
+
+        var editButton = document.querySelectorAll('.edit-book');
+
+        for (var i = 0; i < editButton.length; i++) {
+            var editButton = editButton[i];
+            editButton.removeAttribute('type');
+            editButton.setAttribute('data-bs-toggle', 'modal');
+            editButton.setAttribute('data-bs-target', '#loginModal');
         }
         // let newProductButton = document.getElementsByClassName('view-book');
         // newProductButton.removeAttribute('type');
@@ -475,9 +484,60 @@
         view.style.display = 'block';
         var content = `<div class="bg-light flex">
                              <h3 class="text-center">${obj.title}</h3>
-                             <h6 style="text-align: left; width: 50%; display:block">${obj.author_id} </h6>
-                             <h6 style="text-align: right; width: 50%; display:block"> ${obj.price} MMK</h6>
-                             <p class="text-center">${obj.summary}</p>
+                             <h5 style="text-align: left; float:left; width: 50%; display:inline-block">${obj.author_id} </h5>
+                             <h5 style="text-align: right; width: 50%; display:inline-block"> ${obj.price} MMK</h5>
+                             <p class="text-center pt-3">${obj.summary}</p>
+                    </div>`;
+        document.querySelector('.modal-body').innerHTML = content;
+    }
+
+    function edit(book) {
+
+        var obj = JSON.parse(book);
+        // alert(book);
+        // console.log(obj.summary);
+        var view = document.getElementById('loginModal');
+        view.classList.add('show');
+        // modal.removeAttribute('aria-hidden');
+        view.setAttribute('aria-modal', 'true');
+        view.setAttribute('role', 'dialog');
+        view.style.display = 'block';
+        var content = `<div class="bg-light flex">
+                        <h1 class="text-center">Edit Form</h1>
+                            <form method="PUT" action="http://127.0.0.1:8000/api/books/${obj.id}">
+                                @csrf
+                                <div class="row mb-4">
+                                    <label for="title" class="col-md-2 col-form-label text-md-end">{{ __('Title') }}</label>
+                                    <div class="col-md-10">
+                                        <input id="title" type="text" class="form-control" name="title" value="${obj.title}" required autocomplete="title" autofocus>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="summary" class="col-md-2 col-form-label text-md-end">{{ __('Summary') }}</label>
+                                    <div class="col-md-10">
+                                        <textarea id="summary" type="text" class="form-control @error('summary') is-invalid @enderror" name="summary" value="${obj.summary}" required autocomplete="current-summary">${obj.summary}</textarea>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="author_id" class="col-md-2 col-form-label text-md-end">{{ __('Author') }}</label>
+                                    <div class="col-md-10">
+                                        <input id="author_id" type="text" class="form-control @error('author') is-invalid @enderror" name="summary" value="${obj.author_id}" required autocomplete="current-author_id">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="price" class="col-md-2 col-form-label text-md-end">{{ __('Price') }}</label>
+                                    <div class="col-md-10">
+                                        <input id="price" type="text" class="form-control @error('price') is-invalid @enderror" name="price" value="${obj.price}" required autocomplete="current-price">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-8 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Update') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                     </div>`;
         document.querySelector('.modal-body').innerHTML = content;
     }
