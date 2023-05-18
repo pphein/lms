@@ -428,12 +428,6 @@
         // Loop to access all rows
         data.forEach(r => {
             // console.log(JSON.stringify(r));
-            var jsonString = JSON.stringify(resizeTo, function(key, value) {
-                if (typeof value === "string") {
-                    return value.replace(/ /g, "\u0020");
-                }
-                return value;
-            });
             tab += `<tr>
                         <th scope="row">${r.id}</th>
                         <td>${r.title}</td>
@@ -441,7 +435,7 @@
                         <td>${r.author_id}</td>
                         <td>${r.price} MMK</td>
                         <td>
-                        <button type="button" class="btn btn-sm btn-outline-success" data-object='{"name": "ပြည့်ဖြိုးဟိန်း", "age": 24, "profile": "ကျွန်တော်သည် ကျောင်းဆရာတစ်ယောက် ဖြစ်ပါသည်"}' onClick="show(this.getAttribute('data-object'))"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="view-book btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author_id": "${r.author_id}","price":"${r.price}"}' onClick="show(this.getAttribute('data-object'))"><i class="fa-solid fa-check"></i></button>
                         <button type="button" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pencil"></i></button>
                         <button type="button" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                         </td>
@@ -453,11 +447,39 @@
         tab += `</tbody>`;
         // Setting innerHTML as tab variable
         document.getElementById("books_table").innerHTML = tab;
+
+        var buttons = document.querySelectorAll('.view-book');
+
+        for (var i = 0; i < buttons.length; i++) {
+            var button = buttons[i];
+            button.removeAttribute('type');
+            button.setAttribute('data-bs-toggle', 'modal');
+            button.setAttribute('data-bs-target', '#loginModal');
+        }
+        // let newProductButton = document.getElementsByClassName('view-book');
+        // newProductButton.removeAttribute('type');
+        // newProductButton.setAttribute('data-bs-toggle', 'modal');
+        // newProductButton.setAttribute('data-bs-target', '#loginModal');
     }
 
     function show(book) {
-        // var obj = JSON.parse(book);
-        alert(book);
+
+        var obj = JSON.parse(book);
+        // alert(book);
+        // console.log(obj.summary);
+        var view = document.getElementById('loginModal');
+        view.classList.add('show');
+        // modal.removeAttribute('aria-hidden');
+        view.setAttribute('aria-modal', 'true');
+        view.setAttribute('role', 'dialog');
+        view.style.display = 'block';
+        var content = `<div class="bg-light flex">
+                             <h3 class="text-center">${obj.title}</h3>
+                             <h6 style="text-align: left; width: 50%; display:block">${obj.author_id} </h6>
+                             <h6 style="text-align: right; width: 50%; display:block"> ${obj.price} MMK</h6>
+                             <p class="text-center">${obj.summary}</p>
+                    </div>`;
+        document.querySelector('.modal-body').innerHTML = content;
     }
 
     function Book(bId, bTitle, bSummary, bAuthor, bPrice) {
