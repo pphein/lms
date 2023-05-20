@@ -37,7 +37,7 @@ class BookRepository implements BookRepositoryInterface
     public function updateBookById(int $id, array $data)
     {
         Log::info("Update Data >> " . print_r($data, true));
-        $author = $this->author::where('name', $data['author_id'])->first();
+        $author = $this->author::where('pen_name', $data['author_id'])->first();
         $data['author_id'] = $author?->id ?? 1;
 
         Log::info("Formatted Data >> " . print_r($data, true));
