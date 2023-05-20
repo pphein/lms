@@ -504,8 +504,9 @@
         view.style.display = 'block';
         var content = `<div class="bg-light flex">
                         <h1 class="text-center">Edit Form</h1>
-                            <form method="PUT" action="http://127.0.0.1:8000/api/books/${obj.id}">
+                            <form method="POST" action="{{ route('update') }}">
                                 @csrf
+                                <input type="hidden" name="id" value="${obj.id}">
                                 <div class="row mb-4">
                                     <label for="title" class="col-md-2 col-form-label text-md-end">{{ __('Title') }}</label>
                                     <div class="col-md-10">
@@ -521,7 +522,7 @@
                                 <div class="row mb-4">
                                     <label for="author_id" class="col-md-2 col-form-label text-md-end">{{ __('Author') }}</label>
                                     <div class="col-md-10">
-                                        <input id="author_id" type="text" class="form-control @error('author') is-invalid @enderror" name="summary" value="${obj.author_id}" required autocomplete="current-author_id">
+                                        <input id="author_id" type="text" class="form-control @error('author') is-invalid @enderror" name="author_id" value="${obj.author_id}" required autocomplete="current-author_id">
                                     </div>
                                 </div>
                                 <div class="row mb-4">

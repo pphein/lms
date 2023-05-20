@@ -20,6 +20,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     @vite(['resources/js/app.js', 'resources/js/sidebar.js', 'resources/css/custom.css', 'resources/css/app.css'])
 
+    <meta http-equiv="Content-Security-Policy" content="default-src  http://127.0.0.1:8000/favicon.ico * 'unsafe-inline'; img-src  http://127.0.0.1:8000/favicon.ico *; child-src *; style-src * 'unsafe-inline'" />
+
     <style>
         article {
             width: 200px;

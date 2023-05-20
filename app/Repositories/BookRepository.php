@@ -3,12 +3,15 @@
 namespace App\Repositories;
 
 use App\Contracts\Repositories\BookRepositoryInterface;
+use App\Models\Author;
 use App\Models\Book;
+use Illuminate\Support\Facades\Log;
 
 class BookRepository implements BookRepositoryInterface
 {
     public function __construct(
-        private Book $model
+        private Book $model,
+        private Author $author,
     ) {
     }
 
@@ -33,6 +36,11 @@ class BookRepository implements BookRepositoryInterface
 
     public function updateBookById(int $id, array $data)
     {
+        Log::info("Update Data >> " . print_r($data, true));
+        $author = $this->author::where('name', $data['author_id'])->first();
+        $data['author_id'] = $author?->id ?? 1;
+
+        Log::info("Formatted Data >> " . print_r($data, true));
         $this->model::findOrFail($id)->update($data);
         return $this->model::findOrFail($id)->refresh();
     }

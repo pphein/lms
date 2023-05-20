@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\Services\BookServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Log;
 
 class BookController extends Controller
 {
@@ -58,6 +59,7 @@ class BookController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        Log::info("request data >> " . print_r($request->toArray(), true));
         return $this->service->updateBookById($id, $request->toArray());
     }
 
