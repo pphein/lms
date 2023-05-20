@@ -45,6 +45,17 @@ class BookRepository implements BookRepositoryInterface
         return $this->model::findOrFail($id)->refresh();
     }
 
+    public function deleteBookById(int $id)
+    {
+        Log::info("Update Data >> " . print_r($data, true));
+        $author = $this->author::where('pen_name', $data['author_id'])->first();
+        $data['author_id'] = $author?->id ?? 1;
+
+        Log::info("Formatted Data >> " . print_r($data, true));
+        $this->model::findOrFail($id)->update($data);
+        return $this->model::findOrFail($id)->refresh();
+    }
+
     // public function getBookByTitle(string $title)
     // {
     //     return $this->model->where('title', $title)->first();

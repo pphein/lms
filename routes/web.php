@@ -21,4 +21,5 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::post('/update', [App\Http\Controllers\Api\ApiController::class, 'update'])->name('update');
+Route::post('/updateBook', [App\Http\Controllers\Api\ApiController::class, 'updateBook'])->name('update');
+Route::post('/deleteBook', [App\Http\Controllers\Api\ApiController::class, 'deleteBook'])->name('delete');

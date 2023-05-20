@@ -437,7 +437,7 @@
                         <td>
                         <button type="button" class="view-book btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author_id": "${r.author_id}","price":"${r.price}"}' onClick="show(this.getAttribute('data-object'))"><i class="fa-solid fa-check"></i></button>
                         <button type="button" class="edit-book btn btn-sm btn-outline-primary" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author_id": "${r.author_id}","price":"${r.price}"}' onClick="edit(this.getAttribute('data-object'))"><i class="fa-solid fa-pencil"></i></button>
-                        <button type="button" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                        <button type="button" class="delete-book btn btn-sm btn-outline-danger" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author_id": "${r.author_id}","price":"${r.price}"}' onClick="deleteBook(this.getAttribute('data-object'))"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>`;
             let objBook = new Book(r.id, r.title, r.summary, r.author_id, r.price);
@@ -464,6 +464,15 @@
             editButton.removeAttribute('type');
             editButton.setAttribute('data-bs-toggle', 'modal');
             editButton.setAttribute('data-bs-target', '#loginModal');
+        }
+
+        var deleteButton = document.querySelectorAll('.delete-book');
+
+        for (var i = 0; i < deleteButton.length; i++) {
+            var deleteButton = deleteButton[i];
+            deleteButton.removeAttribute('type');
+            deleteButton.setAttribute('data-bs-toggle', 'modal');
+            deleteButton.setAttribute('data-bs-target', '#loginModal');
         }
         // let newProductButton = document.getElementsByClassName('view-book');
         // newProductButton.removeAttribute('type');
@@ -540,6 +549,58 @@
                                 </div>
                             </form>
                     </div>`;
+        document.querySelector('.modal-body').innerHTML = content;
+    }
+
+    function deleteBook(book) {
+
+        var obj = JSON.parse(book);
+        // alert(book);
+        // console.log(obj.summary);
+        var view = document.getElementById('loginModal');
+        view.classList.add('show');
+        // modal.removeAttribute('aria-hidden');
+        view.setAttribute('aria-modal', 'true');
+        view.setAttribute('role', 'dialog');
+        view.style.display = 'block';
+        var content = `<div class="bg-light flex">
+                            <h1 class="text-center">Delete this book</h1>
+                            <form method="POST" action="{{ route('delete') }}">
+                                @csrf
+                                <input type="hidden" name="id" value="${obj.id}">
+                                <div class="row mb-4">
+                                    <label for="title" class="col-md-2 col-form-label text-md-end">{{ __('Title') }}</label>
+                                    <div class="col-md-10">
+                                        <input id="title" type="text" class="form-control" name="title" value="${obj.title}" required autocomplete="title" readonly>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="summary" class="col-md-2 col-form-label text-md-end">{{ __('Summary') }}</label>
+                                    <div class="col-md-10">
+                                        <textarea id="summary" type="text" class="form-control @error('summary') is-invalid @enderror" name="summary" value="${obj.summary}" required autocomplete="current-summary" readonly>${obj.summary}</textarea>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="author_id" class="col-md-2 col-form-label text-md-end">{{ __('Author') }}</label>
+                                    <div class="col-md-10">
+                                        <input id="author_id" type="text" class="form-control @error('author') is-invalid @enderror" name="author_id" value="${obj.author_id}" required autocomplete="current-author_id" readonly>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="price" class="col-md-2 col-form-label text-md-end">{{ __('Price') }}</label>
+                                    <div class="col-md-10">
+                                        <input id="price" type="text" class="form-control @error('price') is-invalid @enderror" name="price" value="${obj.price}" required autocomplete="current-price" readonly>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-8 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Confirm') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>`;
         document.querySelector('.modal-body').innerHTML = content;
     }
 
