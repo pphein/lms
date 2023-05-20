@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title')->unique();
             $table->text('summary');
-            $table->integer('author_id');
-            $table->integer('publisher_id');
-            $table->integer('edition_id');
+            $table->foreignId('author_id')->constrained();
+            $table->foreignId('publisher_id')->constrained();
+            $table->foreignId('edition_id')->constrained();
             $table->timestamp('published_date')->nullable();
             $table->integer('price');
             $table->integer("category_id");

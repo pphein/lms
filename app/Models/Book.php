@@ -2,15 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Book extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'title'
+        'title',
+        'summary',
+        'author_id',
+        'price'
     ];
 
     public function getAuthorIdAttribute(int $id)
@@ -31,5 +37,35 @@ class Book extends Model
     public function getCategoryIdAttribute(int $id)
     {
         return Category::findOrFail($id)?->name;
+    }
+
+    public function author(): BelongsTo
+    {
+        return $this->belongsTo(Author::class);
+    }
+
+    public function authors(): BelongsToMany
+    {
+        return $this->belongsToMany(Author::class);
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function publisher(): BelongsTo
+    {
+        return $this->belongsTo(Publisher::class);
+    }
+
+    public function publishers(): BelongsToMany
+    {
+        return $this->belongsToMany(Publisher::class);
+    }
+
+    public function editions(): HasMany
+    {
+        return $this->hasMany(Edition::class);
     }
 }
