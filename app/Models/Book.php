@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Book extends Model
 {
@@ -16,56 +16,60 @@ class Book extends Model
         'title',
         'summary',
         'author_id',
-        'price'
+        'publisher_id',
+        'edition_id',
+        'category_id',
+        'price',
+        'status'
     ];
 
-    public function getAuthorIdAttribute(int $id)
-    {
-        return Author::findOrFail($id)?->pen_name;
-    }
+    // public function getAuthorIdAttribute(int $id)
+    // {
+    //     return Author::findOrFail($id)?->pen_name;
+    // }
 
-    public function getPublisherIdAttribute(int $id)
-    {
-        return Publisher::findOrFail($id)?->name;
-    }
+    // public function getPublisherIdAttribute(int $id)
+    // {
+    //     return Publisher::findOrFail($id)?->name;
+    // }
 
-    public function getEditionIdAttribute(int $id)
-    {
-        return Edition::findOrFail($id)?->name;
-    }
+    // public function getEditionIdAttribute(int $id)
+    // {
+    //     return Edition::findOrFail($id)?->name;
+    // }
 
-    public function getCategoryIdAttribute(int $id)
-    {
-        return Category::findOrFail($id)?->name;
-    }
-
-    public function author(): BelongsTo
-    {
-        return $this->belongsTo(Author::class, 'author_book');
-    }
+    // public function getCategoryIdAttribute(int $id)
+    // {
+    //     return Category::findOrFail($id)?->name;
+    // }
 
     public function authors(): BelongsToMany
     {
-        return $this->belongsToMany(Author::class, 'author_book');
+        return $this->belongsToMany(Author::class, 'author_book', 'book_id', 'author_id');
     }
+
+    // public function authors(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(Author::class, 'author_id', 'id');
+    // }
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'category_id', 'id');
     }
 
     public function publisher(): BelongsTo
     {
-        return $this->belongsTo(Publisher::class);
+        return $this->belongsTo(Publisher::class, 'publisher_id', 'id');
     }
 
-    public function publishers(): BelongsToMany
-    {
-        return $this->belongsToMany(Publisher::class);
-    }
+    // public function publishers(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(Publisher::class, 'publishers', 'id');
+    // }
 
-    public function editions(): HasMany
+    public function edition(): BelongsTo
     {
-        return $this->hasMany(Edition::class);
+        return $this->belongsTo(Edition::class, 'edition_id', 'id');
     }
 }

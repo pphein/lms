@@ -16,8 +16,7 @@ class AuthorBookSeeder extends Seeder
         $books = Book::all();
 
         foreach ($books as $book) {
-            $author = Author::where('pen_name', $book->author_id)->first()?->id;
-            $book->authors()->attach($author);
+            $book->authors()->attach($book->author_id);
         }
     }
 }

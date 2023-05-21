@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('author_id')->constrained('authors');
             $table->foreignId('book_id')->constrained('books');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

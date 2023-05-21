@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('profile')->nullable();
             $table->string('address')->nullable();
             $table->string('phone_number')->nullable();
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

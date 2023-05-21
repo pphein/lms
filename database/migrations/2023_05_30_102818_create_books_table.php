@@ -21,6 +21,7 @@ return new class extends Migration
             $table->timestamp('published_date')->nullable();
             $table->integer('price');
             $table->integer("category_id");
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

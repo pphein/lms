@@ -79,23 +79,41 @@
 <main class="mt-4">
     <section class="pt-5">
         <h1>Categories</h1>
-        <table id="categories_table" class="table table-striped">
-        </table>
+        <div class="table-responsive-sm">
+            <table id="categories_table" class="table table-responsive table-striped">
+            </table>
+        </div>
     </section>
     <section class="pt-5">
-        <h1>Books</h1>
-        <table id="books_table" class="table table-striped">
-        </table>
+        <h1>Test</h1>
+        <div class="form-outline">
+            <input type="text" class="form-control" id="datatable-search-input" />
+            <label class="form-label" for="datatable-search-input">Search</label>
+        </div>
+        <div class="datatable"></div>
+    </section>
+    <section class="pt-5">
+        <h1 class="d-inline-block mx-2">Books</h1>
+        <button id="new-book" type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal" onclick="newBook()"><i class="fa-solid fa-plus"></i></button>
+
+        <div class="table-responsive-sm">
+            <table id="books_table" class="table table-responsive table-striped">
+            </table>
+        </div>
     </section>
     <section class="pt-5">
         <h1>Authors</h1>
-        <table id="authors_table" class="table table-striped">
-        </table>
+        <div class="table-responsive-sm">
+            <table id="authors_table" class="table table-responsive table-striped">
+            </table>
+        </div>
     </section>
     <section class="pt-5">
         <h1>Publishers</h1>
-        <table id="publishers_table" class="table table-striped">
-        </table>
+        <div class="table-responsive-sm table-responsive-md">
+            <table id="publishers_table" class="table table-responsive table-striped">
+            </table>
+        </div>
     </section>
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
@@ -419,7 +437,10 @@
                     <th scope="col">Title</th>
                     <th scope="col">Summary</th>
                     <th scope="col">Author</th>
+                    <th scope="col">Publisher</th>
+                    <th scope="col">Edition</th>
                     <th scope="col">Price</th>
+                    <th scope="col">Published_Date</th>
                     <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -432,16 +453,19 @@
                         <th scope="row">${r.id}</th>
                         <td>${r.title}</td>
                         <td>${r.summary}</td>
-                        <td>${r.author_id}</td>
+                        <td>${r.author}</td>
+                        <td>${r.publisher}</td>
+                        <td>${r.edition}</td>
                         <td>${r.price} MMK</td>
+                        <td>${r.published_date ?? ''}</td>
                         <td>
-                        <button type="button" class="view-book btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author_id": "${r.author_id}","price":"${r.price}"}' onClick="show(this.getAttribute('data-object'))"><i class="fa-solid fa-check"></i></button>
-                        <button type="button" class="edit-book btn btn-sm btn-outline-primary" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author_id": "${r.author_id}","price":"${r.price}"}' onClick="edit(this.getAttribute('data-object'))"><i class="fa-solid fa-pencil"></i></button>
-                        <button type="button" class="delete-book btn btn-sm btn-outline-danger" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author_id": "${r.author_id}","price":"${r.price}"}' onClick="deleteBook(this.getAttribute('data-object'))"><i class="fa-solid fa-trash"></i></button>
+                        <button type="button" class="view-book btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author": "${r.author}","publisher":"${r.publisher}","edition":"${r.edition}","price":"${r.price}","published_date":"${r.published_date}"}' onClick="show(this.getAttribute('data-object'))"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="edit-book btn btn-sm btn-outline-primary" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author": "${r.author}","publisher":"${r.publisher}","edition":"${r.edition}","price":"${r.price}","published_date":"${r.published_date}"}' onClick="edit(this.getAttribute('data-object'))"><i class="fa-solid fa-pencil"></i></button>
+                        <button type="button" class="delete-book btn btn-sm btn-outline-danger" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author": "${r.author}","publisher":"${r.publisher}","edition":"${r.edition}","price":"${r.price}","published_date":"${r.published_date}"}' onClick="deleteBook(this.getAttribute('data-object'))"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>`;
-            let objBook = new Book(r.id, r.title, r.summary, r.author_id, r.price);
-            showBookList(objBook);
+            // let objBook = new Book(r.id, r.title, r.summary, r.author, r.publisher, r.edition, r.price);
+            // showBookList(objBook);
         });
 
         tab += `</tbody>`;
@@ -457,19 +481,19 @@
             showButton.setAttribute('data-bs-target', '#loginModal');
         }
 
-        var editButton = document.querySelectorAll('.edit-book');
+        var editButtons = document.querySelectorAll('.edit-book');
 
-        for (var i = 0; i < editButton.length; i++) {
-            var editButton = editButton[i];
+        for (var i = 0; i < editButtons.length; i++) {
+            var editButton = editButtons[i];
             editButton.removeAttribute('type');
             editButton.setAttribute('data-bs-toggle', 'modal');
             editButton.setAttribute('data-bs-target', '#loginModal');
         }
 
-        var deleteButton = document.querySelectorAll('.delete-book');
+        var deleteButtons = document.querySelectorAll('.delete-book');
 
-        for (var i = 0; i < deleteButton.length; i++) {
-            var deleteButton = deleteButton[i];
+        for (var i = 0; i < deleteButtons.length; i++) {
+            var deleteButton = deleteButtons[i];
             deleteButton.removeAttribute('type');
             deleteButton.setAttribute('data-bs-toggle', 'modal');
             deleteButton.setAttribute('data-bs-target', '#loginModal');
@@ -493,7 +517,7 @@
         view.style.display = 'block';
         var content = `<div class="bg-light flex">
                              <h3 class="text-center">${obj.title}</h3>
-                             <h5 style="text-align: left; float:left; width: 50%; display:inline-block">${obj.author_id} </h5>
+                             <h5 style="text-align: left; float:left; width: 50%; display:inline-block">${obj.author} </h5>
                              <h5 style="text-align: right; width: 50%; display:inline-block"> ${obj.price} MMK</h5>
                              <p class="text-center pt-3">${obj.summary}</p>
                     </div>`;
@@ -531,7 +555,19 @@
                                 <div class="row mb-4">
                                     <label for="author_id" class="col-md-2 col-form-label text-md-end">{{ __('Author') }}</label>
                                     <div class="col-md-10">
-                                        <input id="author_id" type="text" class="form-control @error('author') is-invalid @enderror" name="author_id" value="${obj.author_id}" required autocomplete="current-author_id">
+                                        <input id="author_id" type="text" class="form-control @error('author') is-invalid @enderror" name="author_id" value="${obj.author}" required autocomplete="current-author_id">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="publisher_id" class="col-md-2 col-form-label text-md-end">{{ __('Publisher') }}</label>
+                                    <div class="col-md-10">
+                                        <input id="publisher_id" type="text" class="form-control @error('publisher') is-invalid @enderror" name="publisher_id" value="${obj.publisher}" required autocomplete="current-publisher_id">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="edition_id" class="col-md-2 col-form-label text-md-end">{{ __('Edition') }}</label>
+                                    <div class="col-md-10">
+                                        <input id="edition_id" type="text" class="form-control @error('edition') is-invalid @enderror" name="edition_id" value="${obj.edition}" required autocomplete="current-edition_id">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
@@ -604,72 +640,147 @@
         document.querySelector('.modal-body').innerHTML = content;
     }
 
-    function Book(bId, bTitle, bSummary, bAuthor, bPrice) {
-        this.bookId = bId;
-        this.bookTitle = bTitle;
-        this.bookSummary = bSummary;
-        this.bookAuthor = bAuthor;
-        this.bookPrice = bPrice;
-    }
-
-    function showBookList(objBook) {
-        //Create a new product content
-        let newProductContent = document.createElement("article");
-        newProductContent.innerHTML = "<p>" + objBook.bookTitle + "</p>" +
-            "<p>" + objBook.bookSummary + "</p>" +
-            "<p>" + objBook.bookAuthor + "</p>" +
-            "<p>$" + objBook.bookPrice + "</p>";
-
-        //Create a new button within the product content
-        let newProductButton = document.createElement("button");
-        newProductButton.classList.add('nav-link');
-        newProductButton.setAttribute('data-bs-toggle', 'modal');
-        newProductButton.setAttribute('data-bs-target', '#loginModal');
-        newProductButton.innerHTML = "See info";
-
-        //Append button to content
-        newProductContent.appendChild(newProductButton);
-
-        //Append all new elements into the parent element
-        let parentElement = document.getElementById("dspBookList");
-        parentElement.appendChild(newProductContent);
-
-        //Passing this object as the argument to a onclick function
-        newProductButton.addEventListener("click", function() {
-            showBookInfo(objBook);
-        });
-    }
-
-    function showBookInfo(objBook) {
+    function newBook() {
+        // alert(book);
+        // console.log(obj.summary);
         var view = document.getElementById('loginModal');
         view.classList.add('show');
         // modal.removeAttribute('aria-hidden');
         view.setAttribute('aria-modal', 'true');
         view.setAttribute('role', 'dialog');
         view.style.display = 'block';
-        // view.innerHTML = `<div class="modal-dialog modal-dialog-centered">
-        //         <div class="modal-content">
-        //             <div class="modal-header">${objBook.bookTitle}<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
-        //             <div class="modal-body">
-        //                 <div class="myform bg-light">
-        //                     <h1 class="text-center">Login Form</h1>
-        //                 </div>
-        //             </div>
-        //         </div>
-        //     </div>`;
-        var content = `<div class="bg-light">
-                             <h1 class="text-center">${objBook.bookTitle}</h1>
-                    </div>`;
+        var content = `<div class="bg-light flex">
+                            <h1 class="text-center">Create a book</h1>
+                            <form method="POST" action="{{ route('create') }}">
+                                @csrf
+                                <div class="row mb-4">
+                                    <label for="title" class="col-md-2 col-form-label text-md-end">{{ __('Title') }}</label>
+                                    <div class="col-md-10">
+                                        <input id="title" type="text" class="form-control" name="title" required autocomplete="title">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="summary" class="col-md-2 col-form-label text-md-end">{{ __('Summary') }}</label>
+                                    <div class="col-md-10">
+                                        <textarea id="summary" type="text" class="form-control @error('summary') is-invalid @enderror" name="summary" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="author" class="col-md-2 col-form-label text-md-end">{{ __('Author') }}</label>
+                                    <div class="col-md-10">
+                                        <input id="author" type="text" class="form-control @error('author') is-invalid @enderror" name="author" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="price" class="col-md-2 col-form-label text-md-end">{{ __('Price') }}</label>
+                                    <div class="col-md-10">
+                                        <input id="price" type="text" class="form-control @error('price') is-invalid @enderror" name="price" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="publisher" class="col-md-2 col-form-label text-md-end">{{ __('Publisher') }}</label>
+                                    <div class="col-md-10">
+                                        <input id="publisher" type="text" class="form-control @error('price') is-invalid @enderror" name="publisher" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="edition" class="col-md-2 col-form-label text-md-end">{{ __('Edition') }}</label>
+                                    <div class="col-md-10">
+                                        <input id="edition" type="text" class="form-control @error('price') is-invalid @enderror" name="edition" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="category" class="col-md-2 col-form-label text-md-end">{{ __('Category') }}</label>
+                                    <div class="col-md-10">
+                                        <input id="category" type="text" class="form-control @error('price') is-invalid @enderror" name="category" required>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="published_date" class="col-md-2 col-form-label text-md-end">{{ __('Published Date') }}</label>
+                                    <div class="col-md-10">
+                                        <input id="published_date" type="text" class="form-control @error('price') is-invalid @enderror" name="published_date">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-8 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Save') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>`;
         document.querySelector('.modal-body').innerHTML = content;
     }
 
-    function test() {
-        var modal = document.getElementById('loginModal');
-        modal.classList.remove('show');
-        modal.style.display = 'none';
-        modal.removeAttribute('aria-modal');
-        modal.setAttribute('aria-hidden', 'true');
-    }
+    // function Book(bId, bTitle, bSummary, bAuthor, bPublisher, bEdition, bPrice) {
+    //     this.bookId = bId;
+    //     this.bookTitle = bTitle;
+    //     this.bookSummary = bSummary;
+    //     this.bookAuthor = bAuthor;
+    //     this.bookPublisher = bPublisher;
+    //     this.bookEdition = bEdition;
+    //     this.bookPrice = bPrice;
+    // }
+
+    // function showBookList(objBook) {
+    //     //Create a new product content
+    //     let newProductContent = document.createElement("article");
+    //     newProductContent.innerHTML = "<p>" + objBook.bookTitle + "</p>" +
+    //         "<p>" + objBook.bookSummary + "</p>" +
+    //         "<p>" + objBook.bookAuthor + "</p>" +
+    //         "<p>$" + objBook.bookPrice + "</p>";
+
+    //     //Create a new button within the product content
+    //     let newProductButton = document.createElement("button");
+    //     newProductButton.classList.add('nav-link');
+    //     newProductButton.setAttribute('data-bs-toggle', 'modal');
+    //     newProductButton.setAttribute('data-bs-target', '#loginModal');
+    //     newProductButton.innerHTML = "See info";
+
+    //     //Append button to content
+    //     newProductContent.appendChild(newProductButton);
+
+    //     //Append all new elements into the parent element
+    //     let parentElement = document.getElementById("dspBookList");
+    //     parentElement.appendChild(newProductContent);
+
+    //     //Passing this object as the argument to a onclick function
+    //     newProductButton.addEventListener("click", function() {
+    //         showBookInfo(objBook);
+    //     });
+    // }
+
+    // function showBookInfo(objBook) {
+    //     var view = document.getElementById('loginModal');
+    //     view.classList.add('show');
+    //     // modal.removeAttribute('aria-hidden');
+    //     view.setAttribute('aria-modal', 'true');
+    //     view.setAttribute('role', 'dialog');
+    //     view.style.display = 'block';
+    //     // view.innerHTML = `<div class="modal-dialog modal-dialog-centered">
+    //     //         <div class="modal-content">
+    //     //             <div class="modal-header">${objBook.bookTitle}<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
+    //     //             <div class="modal-body">
+    //     //                 <div class="myform bg-light">
+    //     //                     <h1 class="text-center">Login Form</h1>
+    //     //                 </div>
+    //     //             </div>
+    //     //         </div>
+    //     //     </div>`;
+    //     var content = `<div class="bg-light">
+    //                          <h1 class="text-center">${objBook.bookTitle}</h1>
+    //                 </div>`;
+    //     document.querySelector('.modal-body').innerHTML = content;
+    // }
+
+    // function test() {
+    //     var modal = document.getElementById('loginModal');
+    //     modal.classList.remove('show');
+    //     modal.style.display = 'none';
+    //     modal.removeAttribute('aria-modal');
+    //     modal.setAttribute('aria-hidden', 'true');
+    // }
 
     fetch('/api/categories')
         .then(res => {
@@ -843,5 +954,7 @@
         // Your code to run since DOM is loaded and ready
     });
 </script>
+
+
 <script src="https://kit.fontawesome.com/37b269d9af.js" crossorigin="anonymous"></script>
 @endsection

@@ -44,7 +44,7 @@ class BookService implements BookServiceInterface
 
     public function destroyBookById(int $id): bool
     {
-        $result = $this->bookRepo->destroyBookById($id);
+        $result = $this->bookRepo->deleteBookById($id);
 
         return true;
     }
@@ -56,12 +56,12 @@ class BookService implements BookServiceInterface
     //     return new BookResource($result);
     // }
 
-    // public function getBookByAuthor(string $author)
-    // {
-    //     $result = $this->bookRepo->getBookByAuthor($author);
+    public function getBookByAuthor(string $author)
+    {
+        $result = $this->bookRepo->getBookByAuthor($author);
 
-    //     return new BookResource($result);
-    // }
+        return new BookCollection($result);
+    }
 
     // public function getBookByPublisher(string $publisher)
     // {

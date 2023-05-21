@@ -24,6 +24,17 @@ class BookResource extends JsonResource
         //     'category' => $this->category_id
         // ];
 
-        return parent::toArray($request);
+        // return parent::toArray($request);
+
+        return [
+            'title' => $this->title,
+            'summary' => $this->summary,
+            'author' => $this->authors->first()->pen_name,
+            'publisher' => $this->publisher->name,
+            'edition' => $this->edition->name,
+            'price' => $this->price,
+            'category' => $this->category->name,
+            'published_date' => $this->published_date
+        ];
     }
 }

@@ -68,7 +68,8 @@ class BookController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Log::info("Book id to delete >> " . $id);
+        return $this->service->destroyBookById($id);
     }
 
     // public function getByTitle(string $title)
@@ -79,5 +80,10 @@ class BookController extends Controller
     public function searchBook(string $key, string $value)
     {
         return $this->service->searchBook($key, $value);
+    }
+
+    public function getBookByAuthor(string $author)
+    {
+        return $this->service->getBookByAuthor($author);
     }
 }
