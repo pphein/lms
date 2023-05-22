@@ -29,6 +29,7 @@ class BookCollection extends ResourceCollection
                 'publisher' => $collect->publisher?->name,
                 'edition' => $collect->edition?->name,
                 'price' => $collect->price,
+                'category' => $collect->category?->name,
                 'published_date' => $collect->published_date
             ];
         }

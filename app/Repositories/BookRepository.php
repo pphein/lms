@@ -52,16 +52,17 @@ class BookRepository implements BookRepositoryInterface
     public function updateBookById(int $id, array $data)
     {
         Log::info("Update Data >> " . print_r($data, true));
-        $author = $this->author::where('pen_name', $data['author_id'])->first();
-        $publisher = $this->publisher::where('name', $data['publisher_id'])->first();
-        $edition = $this->edition::where('name', $data['edition_id'])->first();
-        $data['author_id'] = $author?->id ?? 1;
-        $data['publisher_id'] = $publisher?->id ?? 1;
-        $data['edition_id'] = $edition?->id ?? 1;
+        $data['author_id'] = $this->author::firstOrCreate(['pen_name' => $data['author']])->id;
+        $data['publisher_id'] = $this->publisher::firstOrCreate(['name' => $data['publisher']])->id;
+        $data['edition_id'] = $this->edition::firstOrCreate(['name' => $data['edition']])->id;
+        $data['category_id'] = $this->category::firstOrCreate(['name' => $data['category']])->id;
 
         Log::info("Formatted Data >> " . print_r($data, true));
         $this->model::findOrFail($id)->update($data);
-        return $this->model::findOrFail($id)->refresh();
+        $book = $this->model::findOrFail($id)->refresh();
+        $book->authors()->attach($book->author_id);
+
+        return $book;
     }
 
     public function deleteBookById(int $id)

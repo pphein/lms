@@ -94,7 +94,7 @@
     </section>
     <section class="pt-5">
         <h1 class="d-inline-block mx-2">Books</h1>
-        <button id="new-book" type="button" class="btn btn-sm btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal" onclick="newBook()"><i class="fa-solid fa-plus"></i></button>
+        <button id="new-book" type="button" class="btn btn-sm btn-outline-success mb-3" data-bs-toggle="modal" data-bs-target="#loginModal" onclick="newBook()"><i class="fa-solid fa-plus"></i></button>
 
         <div class="table-responsive-sm">
             <table id="books_table" class="table table-responsive table-striped">
@@ -440,6 +440,7 @@
                     <th scope="col">Publisher</th>
                     <th scope="col">Edition</th>
                     <th scope="col">Price</th>
+                    <th scope="col">Category</th>
                     <th scope="col">Published_Date</th>
                     <th scope="col">Actions</th>
                     </tr>
@@ -457,11 +458,12 @@
                         <td>${r.publisher}</td>
                         <td>${r.edition}</td>
                         <td>${r.price} MMK</td>
+                        <td>${r.category}</td>
                         <td>${r.published_date ?? ''}</td>
                         <td>
-                        <button type="button" class="view-book btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author": "${r.author}","publisher":"${r.publisher}","edition":"${r.edition}","price":"${r.price}","published_date":"${r.published_date}"}' onClick="show(this.getAttribute('data-object'))"><i class="fa-solid fa-check"></i></button>
-                        <button type="button" class="edit-book btn btn-sm btn-outline-primary" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author": "${r.author}","publisher":"${r.publisher}","edition":"${r.edition}","price":"${r.price}","published_date":"${r.published_date}"}' onClick="edit(this.getAttribute('data-object'))"><i class="fa-solid fa-pencil"></i></button>
-                        <button type="button" class="delete-book btn btn-sm btn-outline-danger" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author": "${r.author}","publisher":"${r.publisher}","edition":"${r.edition}","price":"${r.price}","published_date":"${r.published_date}"}' onClick="deleteBook(this.getAttribute('data-object'))"><i class="fa-solid fa-trash"></i></button>
+                        <button type="button" class="view-book btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author": "${r.author}","publisher":"${r.publisher}","edition":"${r.edition}","price":"${r.price}","category":"${r.category}","published_date":"${r.published_date}"}' onClick="show(this.getAttribute('data-object'))"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="edit-book btn btn-sm btn-outline-primary" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author": "${r.author}","publisher":"${r.publisher}","edition":"${r.edition}","price":"${r.price}","category":"${r.category}","published_date":"${r.published_date}"}' onClick="edit(this.getAttribute('data-object'))"><i class="fa-solid fa-pencil"></i></button>
+                        <button type="button" class="delete-book btn btn-sm btn-outline-danger" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author": "${r.author}","publisher":"${r.publisher}","edition":"${r.edition}","price":"${r.price}","category":"${r.category}","published_date":"${r.published_date}"}' onClick="deleteBook(this.getAttribute('data-object'))"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>`;
             // let objBook = new Book(r.id, r.title, r.summary, r.author, r.publisher, r.edition, r.price);
@@ -553,27 +555,33 @@
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="author_id" class="col-md-2 col-form-label text-md-end">{{ __('Author') }}</label>
+                                    <label for="author" class="col-md-2 col-form-label text-md-end">{{ __('Author') }}</label>
                                     <div class="col-md-10">
-                                        <input id="author_id" type="text" class="form-control @error('author') is-invalid @enderror" name="author_id" value="${obj.author}" required autocomplete="current-author_id">
+                                        <input id="author" type="text" class="form-control @error('author') is-invalid @enderror" name="author" value="${obj.author}" required autocomplete="current-author">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="publisher_id" class="col-md-2 col-form-label text-md-end">{{ __('Publisher') }}</label>
+                                    <label for="publisher" class="col-md-2 col-form-label text-md-end">{{ __('Publisher') }}</label>
                                     <div class="col-md-10">
-                                        <input id="publisher_id" type="text" class="form-control @error('publisher') is-invalid @enderror" name="publisher_id" value="${obj.publisher}" required autocomplete="current-publisher_id">
+                                        <input id="publisher" type="text" class="form-control @error('publisher') is-invalid @enderror" name="publisher" value="${obj.publisher}" required autocomplete="current-publisher">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="edition_id" class="col-md-2 col-form-label text-md-end">{{ __('Edition') }}</label>
+                                    <label for="edition" class="col-md-2 col-form-label text-md-end">{{ __('Edition') }}</label>
                                     <div class="col-md-10">
-                                        <input id="edition_id" type="text" class="form-control @error('edition') is-invalid @enderror" name="edition_id" value="${obj.edition}" required autocomplete="current-edition_id">
+                                        <input id="edition" type="text" class="form-control @error('edition') is-invalid @enderror" name="edition" value="${obj.edition}" required autocomplete="current-edition_id">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <label for="price" class="col-md-2 col-form-label text-md-end">{{ __('Price') }}</label>
                                     <div class="col-md-10">
                                         <input id="price" type="text" class="form-control @error('price') is-invalid @enderror" name="price" value="${obj.price}" required autocomplete="current-price">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="category" class="col-md-2 col-form-label text-md-end">{{ __('Category') }}</label>
+                                    <div class="col-md-10">
+                                        <input id="category" type="text" class="form-control @error('category') is-invalid @enderror" name="category" value="${obj.category}" required autocomplete="current-price">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
@@ -617,9 +625,9 @@
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="author_id" class="col-md-2 col-form-label text-md-end">{{ __('Author') }}</label>
+                                    <label for="author" class="col-md-2 col-form-label text-md-end">{{ __('Author') }}</label>
                                     <div class="col-md-10">
-                                        <input id="author_id" type="text" class="form-control @error('author') is-invalid @enderror" name="author_id" value="${obj.author_id}" required autocomplete="current-author_id" readonly>
+                                        <input id="author" type="text" class="form-control @error('author') is-invalid @enderror" name="author" value="${obj.author}" required autocomplete="current-author_id" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-4">

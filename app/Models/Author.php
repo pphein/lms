@@ -19,4 +19,13 @@ class Author extends Model
     {
         return $this->belongsToMany(Book::class, 'author_book', 'author_id', 'book_id');
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($author) {
+            $author->books()->detach();
+        });
+    }
 }
