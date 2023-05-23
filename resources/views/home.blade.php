@@ -87,14 +87,14 @@
     <section class="pt-5">
         <h1 class="d-inline-block mx-2">Books</h1>
         <button id="new-book" type="button" class="btn btn-sm btn-outline-success mb-3" data-bs-toggle="modal" data-bs-target="#loginModal" onclick="newBook()"><i class="fa-solid fa-plus"></i></button>
-
         <div class="table-responsive-sm">
             <table id="books_table" class="table table-responsive table-striped">
             </table>
         </div>
     </section>
     <section class="pt-5">
-        <h1>Authors</h1>
+        <h1 class="d-inline-block mx-2">Authors</h1>
+        <button id="new-book" type="button" class="btn btn-sm btn-outline-success mb-3" data-bs-toggle="modal" data-bs-target="#loginModal" onclick="newAuthor()"><i class="fa-solid fa-plus"></i></button>
         <div class="table-responsive-sm">
             <table id="authors_table" class="table table-responsive table-striped">
             </table>
@@ -465,36 +465,36 @@
         // Setting innerHTML as tab variable
         document.getElementById("books_table").innerHTML = tab;
 
-        // var showButtons = document.querySelectorAll('.view-book');
+        var showButtons = document.querySelectorAll('.view-book');
 
-        // for (var i = 0; i < showButtons.length; i++) {
-        //     var showButton = showButtons[i];
-        //     showButton.removeAttribute('type');
-        //     showButton.setAttribute('data-bs-toggle', 'modal');
-        //     showButton.setAttribute('data-bs-target', '#loginModal');
-        // }
+        for (var i = 0; i < showButtons.length; i++) {
+            var showButton = showButtons[i];
+            showButton.removeAttribute('type');
+            showButton.setAttribute('data-bs-toggle', 'modal');
+            showButton.setAttribute('data-bs-target', '#loginModal');
+        }
 
-        // var editButtons = document.querySelectorAll('.edit-book');
+        var editButtons = document.querySelectorAll('.edit-book');
 
-        // for (var i = 0; i < editButtons.length; i++) {
-        //     var editButton = editButtons[i];
-        //     editButton.removeAttribute('type');
-        //     editButton.setAttribute('data-bs-toggle', 'modal');
-        //     editButton.setAttribute('data-bs-target', '#loginModal');
-        // }
+        for (var i = 0; i < editButtons.length; i++) {
+            var editButton = editButtons[i];
+            editButton.removeAttribute('type');
+            editButton.setAttribute('data-bs-toggle', 'modal');
+            editButton.setAttribute('data-bs-target', '#loginModal');
+        }
 
-        // var deleteButtons = document.querySelectorAll('.delete-book');
+        var deleteButtons = document.querySelectorAll('.delete-book');
 
-        // for (var i = 0; i < deleteButtons.length; i++) {
-        //     var deleteButton = deleteButtons[i];
-        //     deleteButton.removeAttribute('type');
-        //     deleteButton.setAttribute('data-bs-toggle', 'modal');
-        //     deleteButton.setAttribute('data-bs-target', '#loginModal');
-        // }
-        // let newProductButton = document.getElementsByClassName('view-book');
-        // newProductButton.removeAttribute('type');
-        // newProductButton.setAttribute('data-bs-toggle', 'modal');
-        // newProductButton.setAttribute('data-bs-target', '#loginModal');
+        for (var i = 0; i < deleteButtons.length; i++) {
+            var deleteButton = deleteButtons[i];
+            deleteButton.removeAttribute('type');
+            deleteButton.setAttribute('data-bs-toggle', 'modal');
+            deleteButton.setAttribute('data-bs-target', '#loginModal');
+        }
+        let newProductButton = document.getElementsByClassName('view-book');
+        newProductButton.removeAttribute('type');
+        newProductButton.setAttribute('data-bs-toggle', 'modal');
+        newProductButton.setAttribute('data-bs-target', '#loginModal');
     }
 
     function showBook(book) {
@@ -530,7 +530,7 @@
         view.style.display = 'block';
         var content = `<div class="bg-light flex">
                         <h1 class="text-center">Edit Form</h1>
-                            <form method="POST" action="{{ route('update') }}">
+                            <form method="POST" action="{{ route('update-book') }}">
                                 @csrf
                                 <input type="hidden" name="id" value="${obj.id}">
                                 <div class="row mb-4">
@@ -600,7 +600,7 @@
         view.style.display = 'block';
         var content = `<div class="bg-light flex">
                             <h1 class="text-center">Delete this book</h1>
-                            <form method="POST" action="{{ route('delete') }}">
+                            <form method="POST" action="{{ route('delete-book') }}">
                                 @csrf
                                 <input type="hidden" name="id" value="${obj.id}">
                                 <div class="row mb-4">
@@ -650,7 +650,7 @@
         view.style.display = 'block';
         var content = `<div class="bg-light flex">
                             <h1 class="text-center">Create a book</h1>
-                            <form method="POST" action="{{ route('create') }}">
+                            <form method="POST" action="{{ route('create-book') }}">
                                 @csrf
                                 <div class="row mb-4">
                                     <label for="title" class="col-md-2 col-form-label text-md-end">{{ __('Title') }}</label>
@@ -827,13 +827,15 @@
         })
         .then(data => {
             // alert(data);
-            showAuthors(data)
+            // console.log(data);
+            showAuthors(data.data)
         })
         .catch(error => {
             console.log(error);
         })
 
     function showAuthors(data) {
+        // alert(data);
         let author = `<thead>
                     <tr>
                     <th scope="col">#</th>
@@ -857,9 +859,9 @@
                         <td>${r.address ?? ''}</td>
                         <td>${r.phone_number ?? ''}</td>
                         <td>
-                        <button type="button" class="view-author btn btn-sm btn-outline-success" data-object='{"pen_name":"${r.pen_name}","name":"${r.name}","profile":"${r.profile}","address":"${r.address}","phone_number":"${r.phone_number}"}' onClick="showAuthor(this.getAttribute('data-object'))"><i class="fa-solid fa-check"></i></button>
-                        <button type="button" class="edit-author btn btn-sm btn-outline-primary" data-object='{"pen_name":"${r.pen_name}","name":"${r.name}","profile":"${r.profile}","address":"${r.address}","phone_number":"${r.phone_number}"}' onClick="editAuthor(this.getAttribute('data-object'))"><i class="fa-solid fa-pencil"></i></button>
-                        <button type="button" class="delete-author btn btn-sm btn-outline-danger" data-object='{"pen_name":"${r.pen_name}","name":"${r.name}","profile":"${r.profile}","address":"${r.address}","phone_number":"${r.phone_number}"}' onClick="deleteAuthor(this.getAttribute('data-object'))"><i class="fa-solid fa-trash"></i></button>
+                        <button type="button" class="view-author btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","pen_name":"${r.pen_name ?? ''}","name":"${r.name ?? ''}","profile":"${r.profile ?? ''}","address":"${r.address ?? ''}","phone_number":"${r.phone_number ?? ''}"}' onClick="showAuthor(this.getAttribute('data-object'))"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="edit-author btn btn-sm btn-outline-primary" data-object='{"id":"${r.id}","pen_name":"${r.pen_name ?? ''}","name":"${r.name ?? ''}","profile":"${r.profile ?? ''}","address":"${r.address ?? ''}","phone_number":"${r.phone_number ?? ''}"}' onClick="editAuthor(this.getAttribute('data-object'))"><i class="fa-solid fa-pencil"></i></button>
+                        <button type="button" class="delete-author btn btn-sm btn-outline-danger" data-object='{"id":"${r.id}","pen_name":"${r.pen_name ?? ''}","name":"${r.name ?? ''}","profile":"${r.profile ?? ''}","address":"${r.address ?? ''}","phone_number":"${r.phone_number ?? ''}"}' onClick="deleteAuthor(this.getAttribute('data-object'))"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>`;
         });
@@ -979,13 +981,9 @@
 
         // Your code to run since DOM is loaded and ready
     });
-</script>
-<script>
-    function showAuthor(author) {
 
+    function showAuthor(author) {
         var obj = JSON.parse(author);
-        alert(author);
-        alert(obj);
         var view = document.getElementById('loginModal');
         view.classList.add('show');
         // modal.removeAttribute('aria-hidden');
@@ -997,31 +995,31 @@
                              <div class="row mb-4">
                                     <label for="pen_name" class="col-md-2 col-form-label text-md-end">{{ __('Pen Name') }}</label>
                                     <div class="col-md-10">
-                                        <input id="pen_name" type="text" class="form-control" name="pen_name" value="${obj.pen_name}" required autocomplete="title" autofocus>
+                                        <input id="pen_name" type="text" class="form-control" name="pen_name" value="${obj.pen_name}" required autocomplete="title" autofocus readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <label for="name" class="col-md-2 col-form-label text-md-end">{{ __('name') }}</label>
                                     <div class="col-md-10">
-                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="${obj.name}" required autocomplete="current-name">
+                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="${obj.name}" required autocomplete="current-name" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <label for="profile" class="col-md-2 col-form-label text-md-end">{{ __('Profile') }}</label>
                                     <div class="col-md-10">
-                                        <textarea id="profile" type="text" class="form-control @error('profile') is-invalid @enderror" name="profile" value="" required autocomplete="current-author">${obj.profile}</textarea>
+                                        <textarea id="profile" type="text" class="form-control @error('profile') is-invalid @enderror" name="profile" value="" required autocomplete="current-author" readonly>${obj.profile ?? ''}</textarea>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <label for="address" class="col-md-2 col-form-label text-md-end">{{ __('Address') }}</label>
                                     <div class="col-md-10">
-                                        <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="${obj.address}" required autocomplete="current-address">
+                                        <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="${obj.address ?? ''}" required autocomplete="current-address" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <label for="phone_number" class="col-md-2 col-form-label text-md-end">{{ __('phone_number') }}</label>
                                     <div class="col-md-10">
-                                        <input id="phone_number" type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="${obj.phone_number}" required autocomplete="current-phone_number">
+                                        <input id="phone_number" type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="${obj.phone_number ?? ''}" required autocomplete="current-phone_number" readonly>
                                     </div>
                                 </div>
                                 </form>
@@ -1042,37 +1040,37 @@
         view.style.display = 'block';
         var content = `<div class="bg-light flex">
                         <h1 class="text-center">Edit Form</h1>
-                            <form method="POST" action="{{ route('update') }}">
+                            <form method="POST" action="{{ route('update-author') }}">
                                 @csrf
                                 <input type="hidden" name="id" value="${obj.id}">
                                 <div class="row mb-4">
                                     <label for="pen_name" class="col-md-2 col-form-label text-md-end">{{ __('Pen Name') }}</label>
                                     <div class="col-md-10">
-                                        <input id="pen_name" type="text" class="form-control" name="pen_name" value="${obj.pen_name}" required autocomplete="title" autofocus>
+                                        <input id="pen_name" type="text" class="form-control" name="pen_name" value="${obj.pen_name}" required autocomplete="pen_name" autofocus>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="name" class="col-md-2 col-form-label text-md-end">{{ __('name') }}</label>
+                                    <label for="name" class="col-md-2 col-form-label text-md-end">{{ __('Name') }}</label>
                                     <div class="col-md-10">
-                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="${obj.name}" required autocomplete="current-name">
+                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="${obj.name}" autocomplete="current-name">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <label for="profile" class="col-md-2 col-form-label text-md-end">{{ __('Profile') }}</label>
                                     <div class="col-md-10">
-                                        <textarea id="profile" type="text" class="form-control @error('profile') is-invalid @enderror" name="profile" value="" required autocomplete="current-author">${obj.profile}</textarea>
+                                        <textarea id="profile" type="text" class="form-control @error('profile') is-invalid @enderror" name="profile" value="" autocomplete="current-author">${obj.profile}</textarea>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <label for="address" class="col-md-2 col-form-label text-md-end">{{ __('Address') }}</label>
                                     <div class="col-md-10">
-                                        <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="${obj.address}" required autocomplete="current-address">
+                                        <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="${obj.address}" autocomplete="current-address">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="phone_number" class="col-md-2 col-form-label text-md-end">{{ __('phone_number') }}</label>
+                                    <label for="phone_number" class="col-md-2 col-form-label text-md-end">{{ __('Phone Number') }}</label>
                                     <div class="col-md-10">
-                                        <input id="phone_number" type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="${obj.phone_number}" required autocomplete="current-phone_number">
+                                        <input id="phone_number" type="number" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="${obj.phone_number}" autocomplete="current-phone_number">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
@@ -1100,31 +1098,37 @@
         view.style.display = 'block';
         var content = `<div class="bg-light flex">
                             <h1 class="text-center">Delete this book</h1>
-                            <form method="POST" action="{{ route('delete') }}">
+                            <form method="POST" action="{{ route('delete-author') }}">
                                 @csrf
                                 <input type="hidden" name="id" value="${obj.id}">
                                 <div class="row mb-4">
-                                    <label for="title" class="col-md-2 col-form-label text-md-end">{{ __('Title') }}</label>
+                                    <label for="pen_name" class="col-md-2 col-form-label text-md-end">{{ __('Pen Name') }}</label>
                                     <div class="col-md-10">
-                                        <input id="title" type="text" class="form-control" name="title" value="${obj.title}" required autocomplete="title" readonly>
+                                        <input id="pen_name" type="text" class="form-control" name="pen_name" value="${obj.pen_name}" required autocomplete="pen_name" autofocus>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="summary" class="col-md-2 col-form-label text-md-end">{{ __('Summary') }}</label>
+                                    <label for="name" class="col-md-2 col-form-label text-md-end">{{ __('Name') }}</label>
                                     <div class="col-md-10">
-                                        <textarea id="summary" type="text" class="form-control @error('summary') is-invalid @enderror" name="summary" value="${obj.summary}" required autocomplete="current-summary" readonly>${obj.summary}</textarea>
+                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="${obj.name}" autocomplete="current-name">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="author" class="col-md-2 col-form-label text-md-end">{{ __('Author') }}</label>
+                                    <label for="profile" class="col-md-2 col-form-label text-md-end">{{ __('Profile') }}</label>
                                     <div class="col-md-10">
-                                        <input id="author" type="text" class="form-control @error('author') is-invalid @enderror" name="author" value="${obj.author}" required autocomplete="current-author_id" readonly>
+                                        <textarea id="profile" type="text" class="form-control @error('profile') is-invalid @enderror" name="profile" value="" autocomplete="current-author">${obj.profile}</textarea>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="price" class="col-md-2 col-form-label text-md-end">{{ __('Price') }}</label>
+                                    <label for="address" class="col-md-2 col-form-label text-md-end">{{ __('Address') }}</label>
                                     <div class="col-md-10">
-                                        <input id="price" type="text" class="form-control @error('price') is-invalid @enderror" name="price" value="${obj.price}" required autocomplete="current-price" readonly>
+                                        <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="${obj.address}" autocomplete="current-address">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="phone_number" class="col-md-2 col-form-label text-md-end">{{ __('Phone Number') }}</label>
+                                    <div class="col-md-10">
+                                        <input id="phone_number" type="number" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="${obj.phone_number}" autocomplete="current-phone_number">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
@@ -1140,7 +1144,7 @@
     }
 
     function newAuthor() {
-        // alert(author);
+        alert('author');
         // console.log(obj.summary);
         var view = document.getElementById('loginModal');
         view.classList.add('show');
@@ -1149,55 +1153,37 @@
         view.setAttribute('role', 'dialog');
         view.style.display = 'block';
         var content = `<div class="bg-light flex">
-                            <h1 class="text-center">Create a book</h1>
-                            <form method="POST" action="{{ route('create') }}">
+                            <h1 class="text-center">Create an author</h1>
+                            <form method="POST" action="{{ route('create-author') }}">
                                 @csrf
                                 <div class="row mb-4">
-                                    <label for="title" class="col-md-2 col-form-label text-md-end">{{ __('Title') }}</label>
+                                    <label for="pen_name" class="col-md-2 col-form-label text-md-end">{{ __('Pen Name') }}</label>
                                     <div class="col-md-10">
-                                        <input id="title" type="text" class="form-control" name="title" required autocomplete="title">
+                                        <input id="pen_name" type="text" class="form-control" name="pen_name" value="" required autocomplete="pen_name" autofocus>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="summary" class="col-md-2 col-form-label text-md-end">{{ __('Summary') }}</label>
+                                    <label for="name" class="col-md-2 col-form-label text-md-end">{{ __('Name') }}</label>
                                     <div class="col-md-10">
-                                        <textarea id="summary" type="text" class="form-control @error('summary') is-invalid @enderror" name="summary" required></textarea>
+                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="" autocomplete="current-name">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="author" class="col-md-2 col-form-label text-md-end">{{ __('Author') }}</label>
+                                    <label for="profile" class="col-md-2 col-form-label text-md-end">{{ __('Profile') }}</label>
                                     <div class="col-md-10">
-                                        <input id="author" type="text" class="form-control @error('author') is-invalid @enderror" name="author" required>
+                                        <textarea id="profile" type="text" class="form-control @error('profile') is-invalid @enderror" name="profile" value="" autocomplete="current-author"></textarea>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="price" class="col-md-2 col-form-label text-md-end">{{ __('Price') }}</label>
+                                    <label for="address" class="col-md-2 col-form-label text-md-end">{{ __('Address') }}</label>
                                     <div class="col-md-10">
-                                        <input id="price" type="text" class="form-control @error('price') is-invalid @enderror" name="price" required>
+                                        <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="" autocomplete="current-address">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="publisher" class="col-md-2 col-form-label text-md-end">{{ __('Publisher') }}</label>
+                                    <label for="phone_number" class="col-md-2 col-form-label text-md-end">{{ __('Phone Number') }}</label>
                                     <div class="col-md-10">
-                                        <input id="publisher" type="text" class="form-control @error('price') is-invalid @enderror" name="publisher" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <label for="edition" class="col-md-2 col-form-label text-md-end">{{ __('Edition') }}</label>
-                                    <div class="col-md-10">
-                                        <input id="edition" type="text" class="form-control @error('price') is-invalid @enderror" name="edition" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <label for="category" class="col-md-2 col-form-label text-md-end">{{ __('Category') }}</label>
-                                    <div class="col-md-10">
-                                        <input id="category" type="text" class="form-control @error('price') is-invalid @enderror" name="category" required>
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <label for="published_date" class="col-md-2 col-form-label text-md-end">{{ __('Published Date') }}</label>
-                                    <div class="col-md-10">
-                                        <input id="published_date" type="text" class="form-control @error('price') is-invalid @enderror" name="published_date">
+                                        <input id="phone_number" type="number" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="" autocomplete="current-phone_number">
                                     </div>
                                 </div>
                                 <div class="row mb-4">

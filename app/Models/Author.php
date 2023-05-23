@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -13,7 +12,11 @@ class Author extends Model
 
     protected $fillable = [
         'pen_name',
-        'name'
+        'name',
+        'profile',
+        'address',
+        'phone_number',
+        'status'
     ];
     public function books(): BelongsToMany
     {
