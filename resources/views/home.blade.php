@@ -993,33 +993,33 @@
         var content = `<div class="bg-light flex">
                              <form>
                              <div class="row mb-4">
-                                    <label for="pen_name" class="col-md-2 col-form-label text-md-end">{{ __('Pen Name') }}</label>
-                                    <div class="col-md-10">
+                                    <label for="pen_name" class="col-md-4 col-form-label text-md-end">{{ __('Pen Name') }}</label>
+                                    <div class="col-md-8">
                                         <input id="pen_name" type="text" class="form-control" name="pen_name" value="${obj.pen_name}" required autocomplete="title" autofocus readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="name" class="col-md-2 col-form-label text-md-end">{{ __('name') }}</label>
-                                    <div class="col-md-10">
+                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('name') }}</label>
+                                    <div class="col-md-8">
                                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="${obj.name}" required autocomplete="current-name" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="profile" class="col-md-2 col-form-label text-md-end">{{ __('Profile') }}</label>
-                                    <div class="col-md-10">
+                                    <label for="profile" class="col-md-4 col-form-label text-md-end">{{ __('Profile') }}</label>
+                                    <div class="col-md-8">
                                         <textarea id="profile" type="text" class="form-control @error('profile') is-invalid @enderror" name="profile" value="" required autocomplete="current-author" readonly>${obj.profile ?? ''}</textarea>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="address" class="col-md-2 col-form-label text-md-end">{{ __('Address') }}</label>
-                                    <div class="col-md-10">
+                                    <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Address') }}</label>
+                                    <div class="col-md-8">
                                         <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="${obj.address ?? ''}" required autocomplete="current-address" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="phone_number" class="col-md-2 col-form-label text-md-end">{{ __('phone_number') }}</label>
-                                    <div class="col-md-10">
-                                        <input id="phone_number" type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="${obj.phone_number ?? ''}" required autocomplete="current-phone_number" readonly>
+                                    <label for="phone_number" class="col-md-4 col-form-label text-md-end">{{ __('phone_number') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="phone_number" type="tel" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="${obj.phone_number ?? ''}" required autocomplete="current-phone_number" readonly>
                                     </div>
                                 </div>
                                 </form>
@@ -1044,33 +1044,33 @@
                                 @csrf
                                 <input type="hidden" name="id" value="${obj.id}">
                                 <div class="row mb-4">
-                                    <label for="pen_name" class="col-md-2 col-form-label text-md-end">{{ __('Pen Name') }}</label>
-                                    <div class="col-md-10">
+                                    <label for="pen_name" class="col-md-4 col-form-label text-md-end">{{ __('Pen Name') }}</label>
+                                    <div class="col-md-8">
                                         <input id="pen_name" type="text" class="form-control" name="pen_name" value="${obj.pen_name}" required autocomplete="pen_name" autofocus>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="name" class="col-md-2 col-form-label text-md-end">{{ __('Name') }}</label>
-                                    <div class="col-md-10">
+                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                                    <div class="col-md-8">
                                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="${obj.name}" autocomplete="current-name">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="profile" class="col-md-2 col-form-label text-md-end">{{ __('Profile') }}</label>
-                                    <div class="col-md-10">
+                                    <label for="profile" class="col-md-4 col-form-label text-md-end">{{ __('Profile') }}</label>
+                                    <div class="col-md-8">
                                         <textarea id="profile" type="text" class="form-control @error('profile') is-invalid @enderror" name="profile" value="" autocomplete="current-author">${obj.profile}</textarea>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="address" class="col-md-2 col-form-label text-md-end">{{ __('Address') }}</label>
-                                    <div class="col-md-10">
+                                    <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Address') }}</label>
+                                    <div class="col-md-8">
                                         <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="${obj.address}" autocomplete="current-address">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="phone_number" class="col-md-2 col-form-label text-md-end">{{ __('Phone Number') }}</label>
-                                    <div class="col-md-10">
-                                        <input id="phone_number" type="number" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="${obj.phone_number}" autocomplete="current-phone_number">
+                                    <label for="phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Phone Number') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="phone_number" type="tel" pattern="^(09)[0-9]{7,9}$" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="${obj.phone_number}" autocomplete="current-phone_number">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
@@ -1102,33 +1102,33 @@
                                 @csrf
                                 <input type="hidden" name="id" value="${obj.id}">
                                 <div class="row mb-4">
-                                    <label for="pen_name" class="col-md-2 col-form-label text-md-end">{{ __('Pen Name') }}</label>
-                                    <div class="col-md-10">
+                                    <label for="pen_name" class="col-md-4 col-form-label text-md-end">{{ __('Pen Name') }}</label>
+                                    <div class="col-md-8">
                                         <input id="pen_name" type="text" class="form-control" name="pen_name" value="${obj.pen_name}" required autocomplete="pen_name" autofocus>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="name" class="col-md-2 col-form-label text-md-end">{{ __('Name') }}</label>
-                                    <div class="col-md-10">
+                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                                    <div class="col-md-8">
                                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="${obj.name}" autocomplete="current-name">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="profile" class="col-md-2 col-form-label text-md-end">{{ __('Profile') }}</label>
-                                    <div class="col-md-10">
+                                    <label for="profile" class="col-md-4 col-form-label text-md-end">{{ __('Profile') }}</label>
+                                    <div class="col-md-8">
                                         <textarea id="profile" type="text" class="form-control @error('profile') is-invalid @enderror" name="profile" value="" autocomplete="current-author">${obj.profile}</textarea>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="address" class="col-md-2 col-form-label text-md-end">{{ __('Address') }}</label>
-                                    <div class="col-md-10">
+                                    <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Address') }}</label>
+                                    <div class="col-md-8">
                                         <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="${obj.address}" autocomplete="current-address">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="phone_number" class="col-md-2 col-form-label text-md-end">{{ __('Phone Number') }}</label>
-                                    <div class="col-md-10">
-                                        <input id="phone_number" type="number" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="${obj.phone_number}" autocomplete="current-phone_number">
+                                    <label for="phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Phone Number') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="phone_number" type="tel" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="${obj.phone_number}" autocomplete="current-phone_number">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
@@ -1144,7 +1144,6 @@
     }
 
     function newAuthor() {
-        alert('author');
         // console.log(obj.summary);
         var view = document.getElementById('loginModal');
         view.classList.add('show');
@@ -1157,33 +1156,33 @@
                             <form method="POST" action="{{ route('create-author') }}">
                                 @csrf
                                 <div class="row mb-4">
-                                    <label for="pen_name" class="col-md-2 col-form-label text-md-end">{{ __('Pen Name') }}</label>
-                                    <div class="col-md-10">
+                                    <label for="pen_name" class="col-md-4 col-form-label text-md-end">{{ __('Pen Name') }}</label>
+                                    <div class="col-md-8">
                                         <input id="pen_name" type="text" class="form-control" name="pen_name" value="" required autocomplete="pen_name" autofocus>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="name" class="col-md-2 col-form-label text-md-end">{{ __('Name') }}</label>
-                                    <div class="col-md-10">
+                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                                    <div class="col-md-8">
                                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="" autocomplete="current-name">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="profile" class="col-md-2 col-form-label text-md-end">{{ __('Profile') }}</label>
-                                    <div class="col-md-10">
+                                    <label for="profile" class="col-md-4 col-form-label text-md-end">{{ __('Profile') }}</label>
+                                    <div class="col-md-8">
                                         <textarea id="profile" type="text" class="form-control @error('profile') is-invalid @enderror" name="profile" value="" autocomplete="current-author"></textarea>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="address" class="col-md-2 col-form-label text-md-end">{{ __('Address') }}</label>
-                                    <div class="col-md-10">
+                                    <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Address') }}</label>
+                                    <div class="col-md-8">
                                         <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="" autocomplete="current-address">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="phone_number" class="col-md-2 col-form-label text-md-end">{{ __('Phone Number') }}</label>
-                                    <div class="col-md-10">
-                                        <input id="phone_number" type="number" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="" autocomplete="current-phone_number">
+                                    <label for="phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Phone Number') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="phone_number" type="tel" placeholder="09123456789" pattern="(09)[0-9]{9}" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="" autocomplete="current-phone_number">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
