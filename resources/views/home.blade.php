@@ -1,84 +1,58 @@
 @extends('layouts.app')
 
 @section('content')
-<header>
-    <!-- <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Carousel</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled">Disabled</a>
-                    </li>
-                </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+<header class="header" id="header">
+    <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
+    <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit"><i class="bx bx-search"></i></button>
+    </form>
+</header>
+<div class="l-navbar" id="nav-bar">
+    <nav class="nav">
+        <div>
+            <a href="#" class="nav_logo">
+                <i class='bx bx-layer nav_logo-icon'></i>
+                <span class="nav_logo-name">LMS</span>
+            </a>
+            <div class="nav_list">
+                <a href="#" class="nav_link active">
+                    <i class='bx bx-grid-alt nav_icon'></i>
+                    <span class="nav_name">Dashboard</span>
+                </a>
+                <a href="#" class="nav_link">
+                    <i class='bx bx-user nav_icon'></i>
+                    <span class="nav_name">Users</span>
+                </a>
+                <a href="#" class="nav_link">
+                    <i class='bx bx-message-square-detail nav_icon'></i>
+                    <span class="nav_name">Messages</span>
+                </a>
+                <a href="#" class="nav_link">
+                    <i class='bx bx-bookmark nav_icon'></i>
+                    <span class="nav_name">Bookmark</span>
+                </a>
+                <a href="#" class="nav_link">
+                    <i class='bx bx-folder nav_icon'></i>
+                    <span class="nav_name">Files</span>
+                </a>
+                <a href="#" class="nav_link">
+                    <i class='bx bx-bar-chart-alt-2 nav_icon'></i>
+                    <span class="nav_name">Stats</span>
+                </a>
             </div>
         </div>
-    </nav> -->
-    <header class="header" id="header">
-        <div class="header_toggle"> <i class='bx bx-menu' id="header-toggle"></i> </div>
-        <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit"><i class="bx bx-search"></i></button>
-        </form>
-    </header>
-    <div class="l-navbar" id="nav-bar">
-        <nav class="nav">
-            <div>
-                <a href="#" class="nav_logo">
-                    <i class='bx bx-layer nav_logo-icon'></i>
-                    <span class="nav_logo-name">LMS</span>
-                </a>
-                <div class="nav_list">
-                    <a href="#" class="nav_link active">
-                        <i class='bx bx-grid-alt nav_icon'></i>
-                        <span class="nav_name">Dashboard</span>
-                    </a>
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-user nav_icon'></i>
-                        <span class="nav_name">Users</span>
-                    </a>
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-message-square-detail nav_icon'></i>
-                        <span class="nav_name">Messages</span>
-                    </a>
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-bookmark nav_icon'></i>
-                        <span class="nav_name">Bookmark</span>
-                    </a>
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-folder nav_icon'></i>
-                        <span class="nav_name">Files</span>
-                    </a>
-                    <a href="#" class="nav_link">
-                        <i class='bx bx-bar-chart-alt-2 nav_icon'></i>
-                        <span class="nav_name">Stats</span>
-                    </a>
-                </div>
-            </div>
-            <a href="#" class="nav_link">
-                <i class='bx bx-log-out nav_icon'></i>
-                <span class="nav_name">SignOut</span>
-            </a>
-        </nav>
-    </div>
-</header>
+        <a href="#" class="nav_link">
+            <i class='bx bx-log-out nav_icon'></i>
+            <span class="nav_name">SignOut</span>
+        </a>
+    </nav>
+</div>
 
 <main class="mt-4">
     <section class="pt-5">
-        <h1>Categories</h1>
+        <h1 class="d-inline-block mx-2">Categories</h1>
+        <button id="new-book" type="button" class="btn btn-sm btn-outline-success mb-3" data-bs-toggle="modal" data-bs-target="#loginModal" onclick="newCategory()"><i class="fa-solid fa-plus"></i></button>
         <div class="table-responsive-sm">
             <table id="categories_table" class="table table-responsive table-striped">
             </table>
@@ -101,7 +75,8 @@
         </div>
     </section>
     <section class="pt-5">
-        <h1>Publishers</h1>
+        <h1 class="d-inline-block mx-2">Publishers</h1>
+        <button id="new-book" type="button" class="btn btn-sm btn-outline-success mb-3" data-bs-toggle="modal" data-bs-target="#loginModal" onclick="newPublisher()"><i class="fa-solid fa-plus"></i></button>
         <div class="table-responsive-sm table-responsive-md">
             <table id="publishers_table" class="table table-responsive table-striped">
             </table>
@@ -400,7 +375,6 @@
         </div>
     </div>
 </div>
-<div id="dspBookList"></div>
 <footer class="text-muted py-5">
     <div class="container">
         <p class="float-end mb-1">
@@ -520,11 +494,8 @@
     function editBook(book) {
 
         var obj = JSON.parse(book);
-        // alert(book);
-        // console.log(obj.summary);
         var view = document.getElementById('loginModal');
         view.classList.add('show');
-        // modal.removeAttribute('aria-hidden');
         view.setAttribute('aria-modal', 'true');
         view.setAttribute('role', 'dialog');
         view.style.display = 'block';
@@ -590,11 +561,8 @@
     function deleteBook(book) {
 
         var obj = JSON.parse(book);
-        // alert(book);
-        // console.log(obj.summary);
         var view = document.getElementById('loginModal');
         view.classList.add('show');
-        // modal.removeAttribute('aria-hidden');
         view.setAttribute('aria-modal', 'true');
         view.setAttribute('role', 'dialog');
         view.style.display = 'block';
@@ -640,11 +608,8 @@
     }
 
     function newBook() {
-        // alert(book);
-        // console.log(obj.summary);
         var view = document.getElementById('loginModal');
         view.classList.add('show');
-        // modal.removeAttribute('aria-hidden');
         view.setAttribute('aria-modal', 'true');
         view.setAttribute('role', 'dialog');
         view.style.display = 'block';
@@ -711,83 +676,14 @@
                         </div>`;
         document.querySelector('.modal-body').innerHTML = content;
     }
-
-    // function Book(bId, bTitle, bSummary, bAuthor, bPublisher, bEdition, bPrice) {
-    //     this.bookId = bId;
-    //     this.bookTitle = bTitle;
-    //     this.bookSummary = bSummary;
-    //     this.bookAuthor = bAuthor;
-    //     this.bookPublisher = bPublisher;
-    //     this.bookEdition = bEdition;
-    //     this.bookPrice = bPrice;
-    // }
-
-    // function showBookList(objBook) {
-    //     //Create a new product content
-    //     let newProductContent = document.createElement("article");
-    //     newProductContent.innerHTML = "<p>" + objBook.bookTitle + "</p>" +
-    //         "<p>" + objBook.bookSummary + "</p>" +
-    //         "<p>" + objBook.bookAuthor + "</p>" +
-    //         "<p>$" + objBook.bookPrice + "</p>";
-
-    //     //Create a new button within the product content
-    //     let newProductButton = document.createElement("button");
-    //     newProductButton.classList.add('nav-link');
-    //     newProductButton.setAttribute('data-bs-toggle', 'modal');
-    //     newProductButton.setAttribute('data-bs-target', '#loginModal');
-    //     newProductButton.innerHTML = "See info";
-
-    //     //Append button to content
-    //     newProductContent.appendChild(newProductButton);
-
-    //     //Append all new elements into the parent element
-    //     let parentElement = document.getElementById("dspBookList");
-    //     parentElement.appendChild(newProductContent);
-
-    //     //Passing this object as the argument to a onclick function
-    //     newProductButton.addEventListener("click", function() {
-    //         showBookInfo(objBook);
-    //     });
-    // }
-
-    // function showBookInfo(objBook) {
-    //     var view = document.getElementById('loginModal');
-    //     view.classList.add('show');
-    //     // modal.removeAttribute('aria-hidden');
-    //     view.setAttribute('aria-modal', 'true');
-    //     view.setAttribute('role', 'dialog');
-    //     view.style.display = 'block';
-    //     // view.innerHTML = `<div class="modal-dialog modal-dialog-centered">
-    //     //         <div class="modal-content">
-    //     //             <div class="modal-header">${objBook.bookTitle}<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
-    //     //             <div class="modal-body">
-    //     //                 <div class="myform bg-light">
-    //     //                     <h1 class="text-center">Login Form</h1>
-    //     //                 </div>
-    //     //             </div>
-    //     //         </div>
-    //     //     </div>`;
-    //     var content = `<div class="bg-light">
-    //                          <h1 class="text-center">${objBook.bookTitle}</h1>
-    //                 </div>`;
-    //     document.querySelector('.modal-body').innerHTML = content;
-    // }
-
-    // function test() {
-    //     var modal = document.getElementById('loginModal');
-    //     modal.classList.remove('show');
-    //     modal.style.display = 'none';
-    //     modal.removeAttribute('aria-modal');
-    //     modal.setAttribute('aria-hidden', 'true');
-    // }
-
+</script>
+<script>
     fetch('/api/categories')
         .then(res => {
             return res.json();
         })
         .then(data => {
-            // alert(data);
-            showCategories(data)
+            showCategories(data.data)
         })
         .catch(error => {
             console.log(error);
@@ -809,9 +705,9 @@
                         <th scope="row">${r.id}</th>
                         <td>${r.name}</td>
                         <td>
-                        <button type="button" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-check"></i></button>
-                        <button type="button" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pencil"></i></button>
-                        <button type="button" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                        <button type="button" class="view-category btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","name":"${r.name}"}' onClick="showCategory(this.getAttribute('data-object'))"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="edit-category btn btn-sm btn-outline-primary" data-object='{"id":"${r.id}","name":"${r.name}"}' onClick="editCategory(this.getAttribute('data-object'))"><i class="fa-solid fa-pencil"></i></button>
+                        <button type="button" class="edit-category btn btn-sm btn-outline-danger" data-object='{"id":"${r.id}","name":"${r.name}"}' onClick="deleteCategory(this.getAttribute('data-object'))"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>`;
         });
@@ -819,15 +715,151 @@
         category += `</tbody>`;
         // Setting innerHTML as tab variable
         document.getElementById("categories_table").innerHTML = category;
+
+        var showButtons = document.querySelectorAll('.view-category');
+
+        for (var i = 0; i < showButtons.length; i++) {
+            var showButton = showButtons[i];
+            showButton.removeAttribute('type');
+            showButton.setAttribute('data-bs-toggle', 'modal');
+            showButton.setAttribute('data-bs-target', '#loginModal');
+        }
+
+        var editButtons = document.querySelectorAll('.edit-category');
+
+        for (var i = 0; i < editButtons.length; i++) {
+            var editButton = editButtons[i];
+            editButton.removeAttribute('type');
+            editButton.setAttribute('data-bs-toggle', 'modal');
+            editButton.setAttribute('data-bs-target', '#loginModal');
+        }
+
+        var deleteButtons = document.querySelectorAll('.delete-category');
+
+        for (var i = 0; i < deleteButtons.length; i++) {
+            var deleteButton = deleteButtons[i];
+            deleteButton.removeAttribute('type');
+            deleteButton.setAttribute('data-bs-toggle', 'modal');
+            deleteButton.setAttribute('data-bs-target', '#loginModal');
+        }
     }
 
+    function showCategory(category) {
+        var obj = JSON.parse(category);
+        var view = document.getElementById('loginModal');
+        view.classList.add('show');
+        view.setAttribute('aria-modal', 'true');
+        view.setAttribute('role', 'dialog');
+        view.style.display = 'block';
+        var content = `<div class="bg-light flex">
+                             <form>
+                                <div class="row mb-4">
+                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('name') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="${obj.name}" required autocomplete="current-name" readonly>
+                                    </div>
+                                </div>
+                            </form>
+                    </div>`;
+        document.querySelector('.modal-body').innerHTML = content;
+    }
+
+    function editCategory(category) {
+
+        var obj = JSON.parse(category);
+        var view = document.getElementById('loginModal');
+        view.classList.add('show');
+        view.setAttribute('aria-modal', 'true');
+        view.setAttribute('role', 'dialog');
+        view.style.display = 'block';
+        var content = `<div class="bg-light flex">
+                        <h1 class="text-center">Edit Form</h1>
+                            <form method="POST" action="{{ route('update-category') }}">
+                                @csrf
+                                <input type="hidden" name="id" value="${obj.id}">
+                                <div class="row mb-4">
+                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="${obj.name}" autocomplete="current-name">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-8 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Update') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                    </div>`;
+        document.querySelector('.modal-body').innerHTML = content;
+    }
+
+    function deleteCategory(category) {
+
+        var obj = JSON.parse(category);
+        var view = document.getElementById('loginModal');
+        view.classList.add('show');
+        view.setAttribute('aria-modal', 'true');
+        view.setAttribute('role', 'dialog');
+        view.style.display = 'block';
+        var content = `<div class="bg-light flex">
+                            <h1 class="text-center">Delete this category</h1>
+                            <form method="POST" action="{{ route('delete-category') }}">
+                                @csrf
+                                <input type="hidden" name="id" value="${obj.id}">
+                                <div class="row mb-4">
+                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="${obj.name}" autocomplete="current-name">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-8 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Confirm') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>`;
+        document.querySelector('.modal-body').innerHTML = content;
+    }
+
+    function newCategory() {
+        var view = document.getElementById('loginModal');
+        view.classList.add('show');
+        view.setAttribute('aria-modal', 'true');
+        view.setAttribute('role', 'dialog');
+        view.style.display = 'block';
+        var content = `<div class="bg-light flex">
+                            <h1 class="text-center">Create a category</h1>
+                            <form method="POST" action="{{ route('create-category') }}">
+                                @csrf
+                                <div class="row mb-4">
+                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="" autocomplete="current-name">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-8 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Save') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>`;
+        document.querySelector('.modal-body').innerHTML = content;
+    }
+</script>
+<script>
     fetch('/api/authors')
         .then(res => {
             return res.json();
         })
         .then(data => {
-            // alert(data);
-            // console.log(data);
             showAuthors(data.data)
         })
         .catch(error => {
@@ -835,7 +867,6 @@
         })
 
     function showAuthors(data) {
-        // alert(data);
         let author = `<thead>
                     <tr>
                     <th scope="col">#</th>
@@ -898,90 +929,6 @@
         }
     }
 
-    fetch('/api/publishers')
-        .then(res => {
-            return res.json();
-        })
-        .then(data => {
-            // alert(data);
-            showPublishers(data)
-        })
-        .catch(error => {
-            console.log(error);
-        })
-
-    function showPublishers(data) {
-        let publisher = `<thead>
-                    <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Phone Number</th>
-                    <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>`;
-
-        // Loop to access all rows
-        data.forEach(r => {
-            publisher += `<tr>
-                        <th scope="row">${r.id}</th>
-                        <td>${r.name ?? ''}</td>
-                        <td>${r.address ?? ''}</td>
-                        <td>${r.phone_number ?? ''}</td>
-                        <td>
-                        <button type="button" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-check"></i></button>
-                        <button type="button" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pencil"></i></button>
-                        <button type="button" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>`;
-        });
-
-        publisher += `</tbody>`;
-        // Setting innerHTML as tab variable
-        document.getElementById("publishers_table").innerHTML = publisher;
-    }
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function(event) {
-
-        const showNavbar = (toggleId, navId, bodyId, headerId) => {
-            const toggle = document.getElementById(toggleId),
-                nav = document.getElementById(navId),
-                bodypd = document.getElementById(bodyId),
-                headerpd = document.getElementById(headerId)
-
-            // Validate that all variables exist
-            if (toggle && nav && bodypd && headerpd) {
-                toggle.addEventListener('click', () => {
-                    // show navbar
-                    nav.classList.toggle('show')
-                    // change icon
-                    toggle.classList.toggle('bx-x')
-                    // add padding to body
-                    bodypd.classList.toggle('body-pd')
-                    // add padding to header
-                    headerpd.classList.toggle('body-pd')
-                })
-            }
-        }
-
-        showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
-
-        /*===== LINK ACTIVE =====*/
-        const linkColor = document.querySelectorAll('.nav_link')
-
-        function colorLink() {
-            if (linkColor) {
-                linkColor.forEach(l => l.classList.remove('active'))
-                this.classList.add('active')
-            }
-        }
-        linkColor.forEach(l => l.addEventListener('click', colorLink))
-
-        // Your code to run since DOM is loaded and ready
-    });
-
     function showAuthor(author) {
         var obj = JSON.parse(author);
         var view = document.getElementById('loginModal');
@@ -999,7 +946,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('name') }}</label>
+                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
                                     <div class="col-md-8">
                                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="${obj.name}" required autocomplete="current-name" readonly>
                                     </div>
@@ -1017,7 +964,7 @@
                                     </div>
                                 </div>
                                 <div class="row mb-4">
-                                    <label for="phone_number" class="col-md-4 col-form-label text-md-end">{{ __('phone_number') }}</label>
+                                    <label for="phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Phone Number') }}</label>
                                     <div class="col-md-8">
                                         <input id="phone_number" type="tel" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="${obj.phone_number ?? ''}" required autocomplete="current-phone_number" readonly>
                                     </div>
@@ -1196,6 +1143,276 @@
                         </div>`;
         document.querySelector('.modal-body').innerHTML = content;
     }
+</script>
+<script>
+    fetch('/api/publishers')
+        .then(res => {
+            return res.json();
+        })
+        .then(data => {
+            showPublishers(data.data)
+        })
+        .catch(error => {
+            console.log(error);
+        })
+
+    function showPublishers(data) {
+        let publisher = `<thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>`;
+
+        // Loop to access all rows
+        data.forEach(r => {
+            publisher += `<tr>
+                        <th scope="row">${r.id}</th>
+                        <td>${r.name ?? ''}</td>
+                        <td>${r.address ?? ''}</td>
+                        <td>${r.phone_number ?? ''}</td>
+                        <td>
+                        <button type="button" class="view-publisher btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","name":"${r.name}","address":"${r.address ??''}","phone_number":"${r.phone_number ??''}"}' onClick="showPublisher(this.getAttribute('data-object'))"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="edit-publisher btn btn-sm btn-outline-primary" data-object='{"id":"${r.id}","name":"${r.name ??''}","address":"${r.address ??''}","phone_number":"${r.phone_number ??''}"}' onClick="editPublisher(this.getAttribute('data-object'))"><i class="fa-solid fa-pencil"></i></button>
+                        <button type="button" class="delete-publisher btn btn-sm btn-outline-danger" data-object='{"id":"${r.id}","name":"${r.name}","address":"${r.address ??''}","phone_number":"${r.phone_number ??''}"}' onClick="deletePublisher(this.getAttribute('data-object'))"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>`;
+        });
+
+        publisher += `</tbody>`;
+        // Setting innerHTML as tab variable
+        document.getElementById("publishers_table").innerHTML = publisher;
+
+        var showButtons = document.querySelectorAll('.view-publisher');
+
+        for (var i = 0; i < showButtons.length; i++) {
+            var showButton = showButtons[i];
+            showButton.removeAttribute('type');
+            showButton.setAttribute('data-bs-toggle', 'modal');
+            showButton.setAttribute('data-bs-target', '#loginModal');
+        }
+
+        var editButtons = document.querySelectorAll('.edit-publisher');
+
+        for (var i = 0; i < editButtons.length; i++) {
+            var editButton = editButtons[i];
+            editButton.removeAttribute('type');
+            editButton.setAttribute('data-bs-toggle', 'modal');
+            editButton.setAttribute('data-bs-target', '#loginModal');
+        }
+
+        var deleteButtons = document.querySelectorAll('.delete-publisher');
+
+        for (var i = 0; i < deleteButtons.length; i++) {
+            var deleteButton = deleteButtons[i];
+            deleteButton.removeAttribute('type');
+            deleteButton.setAttribute('data-bs-toggle', 'modal');
+            deleteButton.setAttribute('data-bs-target', '#loginModal');
+        }
+    }
+
+    function showPublisher(publisher) {
+        alert(publisher);
+        console.log(publisher);
+        var obj = JSON.parse(publisher);
+        var view = document.getElementById('loginModal');
+        view.classList.add('show');
+        view.setAttribute('aria-modal', 'true');
+        view.setAttribute('role', 'dialog');
+        view.style.display = 'block';
+        var content = `<div class="bg-light flex">
+                             <form>
+                                <div class="row mb-4">
+                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="${obj.name}" required autocomplete="current-name" readonly>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Address') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="${obj.address ?? ''}" required autocomplete="current-address" readonly>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Phone Number') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="phone_number" type="tel" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="${obj.phone_number ?? ''}" required autocomplete="current-phone_number" readonly>
+                                    </div>
+                                </div>
+                                </form>
+                    </div>`;
+        document.querySelector('.modal-body').innerHTML = content;
+    }
+
+    function editPublisher(publisher) {
+
+        var obj = JSON.parse(publisher);
+        var view = document.getElementById('loginModal');
+        view.classList.add('show');
+        view.setAttribute('aria-modal', 'true');
+        view.setAttribute('role', 'dialog');
+        view.style.display = 'block';
+        var content = `<div class="bg-light flex">
+                        <h1 class="text-center">Edit Form</h1>
+                            <form method="POST" action="{{ route('update-publisher') }}">
+                                @csrf
+                                <input type="hidden" name="id" value="${obj.id}">
+                                <div class="row mb-4">
+                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="${obj.name}" autocomplete="current-name">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Address') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="${obj.address}" autocomplete="current-address">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Phone Number') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="phone_number" type="tel" pattern="^(09)[0-9]{7,9}$" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="${obj.phone_number}" autocomplete="current-phone_number">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-8 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Update') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                    </div>`;
+        document.querySelector('.modal-body').innerHTML = content;
+    }
+
+    function deletePublisher(publisher) {
+        var obj = JSON.parse(publisher);
+        var view = document.getElementById('loginModal');
+        view.classList.add('show');
+        view.setAttribute('aria-modal', 'true');
+        view.setAttribute('role', 'dialog');
+        view.style.display = 'block';
+        var content = `<div class="bg-light flex">
+                            <h1 class="text-center">Delete this publisher</h1>
+                            <form method="POST" action="{{ route('delete-publisher') }}">
+                                @csrf
+                                <input type="hidden" name="id" value="${obj.id}">
+                                <div class="row mb-4">
+                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="${obj.name}" autocomplete="current-name">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Address') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="${obj.address}" autocomplete="current-address">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Phone Number') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="phone_number" type="tel" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="${obj.phone_number}" autocomplete="current-phone_number">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-8 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Confirm') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>`;
+        document.querySelector('.modal-body').innerHTML = content;
+    }
+
+    function newPublisher() {
+        var view = document.getElementById('loginModal');
+        view.classList.add('show');
+        view.setAttribute('aria-modal', 'true');
+        view.setAttribute('role', 'dialog');
+        view.style.display = 'block';
+        var content = `<div class="bg-light flex">
+                            <h1 class="text-center">Create a publisher</h1>
+                            <form method="POST" action="{{ route('create-publisher') }}">
+                                @csrf
+                                <div class="row mb-4">
+                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="" autocomplete="current-name">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Address') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" value="" autocomplete="current-address">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Phone Number') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="phone_number" type="tel" placeholder="09123456789" pattern="(09)[0-9]{9}" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="" autocomplete="current-phone_number">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-8 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Save') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>`;
+        document.querySelector('.modal-body').innerHTML = content;
+    }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+
+        const showNavbar = (toggleId, navId, bodyId, headerId) => {
+            const toggle = document.getElementById(toggleId),
+                nav = document.getElementById(navId),
+                bodypd = document.getElementById(bodyId),
+                headerpd = document.getElementById(headerId)
+
+            // Validate that all variables exist
+            if (toggle && nav && bodypd && headerpd) {
+                toggle.addEventListener('click', () => {
+                    // show navbar
+                    nav.classList.toggle('show')
+                    // change icon
+                    toggle.classList.toggle('bx-x')
+                    // add padding to body
+                    bodypd.classList.toggle('body-pd')
+                    // add padding to header
+                    headerpd.classList.toggle('body-pd')
+                })
+            }
+        }
+
+        showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
+
+        /*===== LINK ACTIVE =====*/
+        const linkColor = document.querySelectorAll('.nav_link')
+
+        function colorLink() {
+            if (linkColor) {
+                linkColor.forEach(l => l.classList.remove('active'))
+                this.classList.add('active')
+            }
+        }
+        linkColor.forEach(l => l.addEventListener('click', colorLink))
+
+        // Your code to run since DOM is loaded and ready
+    });
 </script>
 
 

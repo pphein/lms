@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Publisher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Contracts\Services\PublisherServiceInterface;
 
 class PublisherController extends Controller
 {
     public function __construct(
-        private Publisher $model
+        private PublisherServiceInterface $service
     ) {
     }
     /**
@@ -16,7 +17,8 @@ class PublisherController extends Controller
      */
     public function index()
     {
-        return $this->model->get();
+        $result = $this->service->getList();
+        return $result;
     }
 
     /**
@@ -24,7 +26,7 @@ class PublisherController extends Controller
      */
     public function create(Request $request)
     {
-        // return $this->model->create($request->toArray());
+        // return $this->service->create($request->toArray());
     }
 
     /**
@@ -32,7 +34,7 @@ class PublisherController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->model->create($request->toArray());
+        return $this->service->createPublisher($request->toArray());
     }
 
     /**
@@ -40,7 +42,7 @@ class PublisherController extends Controller
      */
     public function show(string $id)
     {
-        return $this->model->findOrFail($id);
+        return $this->service->getPublisherById($id);
     }
 
     /**
@@ -56,7 +58,8 @@ class PublisherController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return $this->model->findOrFail($id)->update($request->toArray());
+        Log::info("request data >> " . print_r($request->toArray(), true));
+        return $this->service->updatePublisherById($id, $request->toArray());
     }
 
     /**
@@ -64,6 +67,17 @@ class PublisherController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Log::info("Publisher id to delete >> " . $id);
+        return $this->service->destroyPublisherById($id);
+    }
+
+    // public function getByTitle(string $title)
+    // {
+    //     return $this->service->getPublisherByTitle($title);
+    // }
+
+    public function searchPublisher(string $key, string $value)
+    {
+        return $this->service->searchPublisher($key, $value);
     }
 }
