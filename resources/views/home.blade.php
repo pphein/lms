@@ -452,7 +452,7 @@
                         <td>${r.category}</td>
                         <td>${r.published_date ?? ''}</td>
                         <td>
-                        <button type="button" class="view-book btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author": "${r.author}","publisher":"${r.publisher}","edition":"${r.edition}","price":"${r.price}","category":"${r.category}","published_date":"${r.published_date}"}' onClick="showBook(this.getAttribute('data-object'))"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="view-book btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author": "${r.author}","publisher":"${r.publisher}","edition":"${r.edition}","price":"${r.price}","category":"${r.category}","published_date":"${r.published_date}"}' onClick="showBook(this.getAttribute('data-object'))"><i class="fa-solid fa-eye"></i></i></button>
                         <button type="button" class="edit-book btn btn-sm btn-outline-primary" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author": "${r.author}","publisher":"${r.publisher}","edition":"${r.edition}","price":"${r.price}","category":"${r.category}","published_date":"${r.published_date}"}' onClick="editBook(this.getAttribute('data-object'))"><i class="fa-solid fa-pencil"></i></button>
                         <button type="button" class="delete-book btn btn-sm btn-outline-danger" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author": "${r.author}","publisher":"${r.publisher}","edition":"${r.edition}","price":"${r.price}","category":"${r.category}","published_date":"${r.published_date}"}' onClick="deleteBook(this.getAttribute('data-object'))"><i class="fa-solid fa-trash"></i></button>
                         </td>
@@ -809,7 +809,7 @@
                         <th scope="row">${r.id}</th>
                         <td>${r.name}</td>
                         <td>
-                        <button type="button" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-eye"></i></i></button>
                         <button type="button" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pencil"></i></button>
                         <button type="button" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                         </td>
@@ -859,7 +859,7 @@
                         <td>${r.address ?? ''}</td>
                         <td>${r.phone_number ?? ''}</td>
                         <td>
-                        <button type="button" class="view-author btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","pen_name":"${r.pen_name ?? ''}","name":"${r.name ?? ''}","profile":"${r.profile ?? ''}","address":"${r.address ?? ''}","phone_number":"${r.phone_number ?? ''}"}' onClick="showAuthor(this.getAttribute('data-object'))"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="view-author btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","pen_name":"${r.pen_name ?? ''}","name":"${r.name ?? ''}","profile":"${r.profile ?? ''}","address":"${r.address ?? ''}","phone_number":"${r.phone_number ?? ''}"}' onClick="showAuthor(this.getAttribute('data-object'))"><i class="fa-solid fa-eye"></i></i></button>
                         <button type="button" class="edit-author btn btn-sm btn-outline-primary" data-object='{"id":"${r.id}","pen_name":"${r.pen_name ?? ''}","name":"${r.name ?? ''}","profile":"${r.profile ?? ''}","address":"${r.address ?? ''}","phone_number":"${r.phone_number ?? ''}"}' onClick="editAuthor(this.getAttribute('data-object'))"><i class="fa-solid fa-pencil"></i></button>
                         <button type="button" class="delete-author btn btn-sm btn-outline-danger" data-object='{"id":"${r.id}","pen_name":"${r.pen_name ?? ''}","name":"${r.name ?? ''}","profile":"${r.profile ?? ''}","address":"${r.address ?? ''}","phone_number":"${r.phone_number ?? ''}"}' onClick="deleteAuthor(this.getAttribute('data-object'))"><i class="fa-solid fa-trash"></i></button>
                         </td>
@@ -930,7 +930,7 @@
                         <td>${r.address ?? ''}</td>
                         <td>${r.phone_number ?? ''}</td>
                         <td>
-                        <button type="button" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-eye"></i></i></button>
                         <button type="button" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pencil"></i></button>
                         <button type="button" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
                         </td>
