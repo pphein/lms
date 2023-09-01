@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\Services\BookServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
+use App\Contracts\Services\BookServiceInterface;
 
 class BookController extends Controller
 {

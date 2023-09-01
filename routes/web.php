@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +22,18 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::post('/createBook', [App\Http\Controllers\Api\ApiController::class, 'createBook'])->name('create-book');
-Route::post('/updateBook', [App\Http\Controllers\Api\ApiController::class, 'updateBook'])->name('update-book');
-Route::post('/deleteBook', [App\Http\Controllers\Api\ApiController::class, 'deleteBook'])->name('delete-book');
+Route::post('/createBook', [ApiController::class, 'createBook'])->name('create-book');
+Route::post('/updateBook', [ApiController::class, 'updateBook'])->name('update-book');
+Route::post('/deleteBook', [ApiController::class, 'deleteBook'])->name('delete-book');
 
-Route::post('/createAuthor', [App\Http\Controllers\Api\ApiController::class, 'createAuthor'])->name('create-author');
-Route::post('/updateAuthor', [App\Http\Controllers\Api\ApiController::class, 'updateAuthor'])->name('update-author');
-Route::post('/deleteAuthor', [App\Http\Controllers\Api\ApiController::class, 'deleteAuthor'])->name('delete-author');
+Route::post('/createAuthor', [ApiController::class, 'createAuthor'])->name('create-author');
+Route::post('/updateAuthor', [ApiController::class, 'updateAuthor'])->name('update-author');
+Route::post('/deleteAuthor', [ApiController::class, 'deleteAuthor'])->name('delete-author');
+
+Route::post('/createCategory', [ApiController::class, 'createCategory'])->name('create-category');
+Route::post('/updateCategory', [ApiController::class, 'updateCategory'])->name('update-category');
+Route::post('/deleteCategory', [ApiController::class, 'deleteCategory'])->name('delete-category');
+
+Route::post('/createPublisher', [ApiController::class, 'createPublisher'])->name('create-publisher');
+Route::post('/updatePublisher', [ApiController::class, 'updatePublisher'])->name('update-publisher');
+Route::post('/deletePublisher', [ApiController::class, 'deletePublisher'])->name('delete-publisher');
