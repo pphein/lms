@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Edition;
 use Illuminate\Http\Request;
+use App\Contracts\Services\EditionServiceInterface;
+use Illuminate\Support\Facades\Log;
 
 class EditionController extends Controller
 {
     public function __construct(
-        private Edition $model
+        private EditionServiceInterface $service
     ) {
     }
     /**
@@ -16,7 +17,8 @@ class EditionController extends Controller
      */
     public function index()
     {
-        return $this->model->get();
+        $result = $this->service->getList();
+        return $result;
     }
 
     /**
@@ -32,7 +34,10 @@ class EditionController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->model->create($request->toArray());
+        Log::info("Create Request >> " . print_r($request->all(), true));
+        $this->service->createEdition($request->toArray());
+
+        return view('home')->with('success', 'successfully created');
     }
 
     /**
@@ -40,7 +45,7 @@ class EditionController extends Controller
      */
     public function show(string $id)
     {
-        return $this->model->findOrFail($id);
+        return $this->service->getEditionById($id);
     }
 
     /**
@@ -56,7 +61,10 @@ class EditionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return $this->model->findOrFail($id)->update($request->toArray());
+        Log::info("request data >> " . print_r($request->toArray(), true));
+        $this->service->updateEditionById($id, $request->toArray());
+
+        return view('home')->with('success', 'successfully updated');
     }
 
     /**
@@ -64,6 +72,8 @@ class EditionController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Log::info("Book id to delete >> " . $id);
+        $this->service->destroyEditionById($id);
+        return view('home')->with('success', 'successfully deleted');
     }
 }

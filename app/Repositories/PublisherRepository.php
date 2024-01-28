@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Publisher;
 use Illuminate\Support\Facades\Log;
 use App\Contracts\Repositories\PublisherRepositoryInterface;
+use App\Enums\StatusEnum;
 
 class PublisherRepository implements PublisherRepositoryInterface
 {
@@ -15,12 +16,12 @@ class PublisherRepository implements PublisherRepositoryInterface
 
     public function getList()
     {
-        return $this->model::where('status', 0)->get();
+        return $this->model::where('status', StatusEnum::ACTIVE->value)->get();
     }
 
     public function getPublisherById(int $id)
     {
-        return $this->model::where('status', 0)->findOrFail($id);
+        return $this->model::where('status', StatusEnum::ACTIVE->value)->findOrFail($id);
     }
 
     public function createPublisher(array $data)
@@ -28,7 +29,8 @@ class PublisherRepository implements PublisherRepositoryInterface
         $attributes = [
             'name' => $data['name']
         ];
-        $publisher = $this->model::firstOrCreate($attributes, $data);
+        $data['status'] = StatusEnum::ACTIVE->value;
+        $publisher = $this->model::updateOrCreate($attributes, $data);
 
         return $publisher;
     }
@@ -45,7 +47,7 @@ class PublisherRepository implements PublisherRepositoryInterface
 
     public function deletePublisherById(int $id)
     {
-        $result = $this->model::findOrFail($id)->update(['status' => 1]);
+        $result = $this->model::findOrFail($id)->update(['status' => StatusEnum::DELETED->value]);
         Log::info("Deleted Publisher >> " . $result . " Publisher " . print_r($this->model::findOrFail($id), true));
         return $this->model::findOrFail($id)->refresh();
     }

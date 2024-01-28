@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Category;
 use Illuminate\Support\Facades\Log;
 use App\Contracts\Repositories\CategoryRepositoryInterface;
+use App\Enums\StatusEnum;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
@@ -15,12 +16,12 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function getList()
     {
-        return $this->model::where('status', 0)->get();
+        return $this->model::where('status', StatusEnum::ACTIVE->value)->get();
     }
 
     public function getCategoryById(int $id)
     {
-        return $this->model::where('status', 0)->findOrFail($id);
+        return $this->model::where('status', StatusEnum::ACTIVE->value)->findOrFail($id);
     }
 
     public function createCategory(array $data)
@@ -28,7 +29,8 @@ class CategoryRepository implements CategoryRepositoryInterface
         $attributes = [
             'name' => $data['name']
         ];
-        $category = $this->model::firstOrCreate($attributes, $data);
+        $data['status'] = StatusEnum::ACTIVE->value;
+        $category = $this->model::updateOrCreate($attributes, $data);
 
         return $category;
     }

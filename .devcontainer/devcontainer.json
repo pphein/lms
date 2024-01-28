@@ -2,13 +2,13 @@
     "name": "PHP",
     "build": {
         "dockerfile": "Dockerfile",
-        "args": {
-            // Update VARIANT to pick a PHP version: 7, 7.4, 7.3
-            "VARIANT": "8.1",
-            "USERNAME": "vscode",
-            "USER_ID": "1000",
-            "BUILDKIT_INLINE_CACHE": "0"
-        }
+        // "args": {
+        //     // Update VARIANT to pick a PHP version: 7, 7.4, 7.3
+        //     "VARIANT": "8.1",
+        //     "USERNAME": "vscode",
+        //     "USER_ID": "1000",
+        //     "BUILDKIT_INLINE_CACHE": "0"
+        // }
     },
     "customizations": {
         "vscode": {

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Log;
 use App\Contracts\Services\BookServiceInterface;
 
@@ -35,7 +34,10 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->service->createBook($request->toArray());
+        Log::info("Create Request >> " . print_r($request->all(), true));
+        $this->service->createBook($request->toArray());
+
+        return view('home')->with('success', 'successfully created');
     }
 
     /**
@@ -60,7 +62,9 @@ class BookController extends Controller
     public function update(Request $request, string $id)
     {
         Log::info("request data >> " . print_r($request->toArray(), true));
-        return $this->service->updateBookById($id, $request->toArray());
+        $this->service->updateBookById($id, $request->toArray());
+
+        return view('home')->with('success', 'successfully updated');
     }
 
     /**
@@ -69,7 +73,8 @@ class BookController extends Controller
     public function destroy(string $id)
     {
         Log::info("Book id to delete >> " . $id);
-        return $this->service->destroyBookById($id);
+        $this->service->destroyBookById($id);
+        return view('home')->with('success', 'successfully deleted');
     }
 
     // public function getByTitle(string $title)

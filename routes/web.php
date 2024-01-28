@@ -37,3 +37,7 @@ Route::post('/deleteCategory', [ApiController::class, 'deleteCategory'])->name('
 Route::post('/createPublisher', [ApiController::class, 'createPublisher'])->name('create-publisher');
 Route::post('/updatePublisher', [ApiController::class, 'updatePublisher'])->name('update-publisher');
 Route::post('/deletePublisher', [ApiController::class, 'deletePublisher'])->name('delete-publisher');
+
+Route::post('/createEdition', [ApiController::class, 'createEdition'])->name('create-edition');
+Route::post('/updateEdition', [ApiController::class, 'updateEdition'])->name('update-edition');
+Route::post('/deleteEdition', [ApiController::class, 'deleteEdition'])->name('delete-edition');

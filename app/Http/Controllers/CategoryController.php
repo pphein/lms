@@ -34,7 +34,10 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->service->createCategory($request->toArray());
+        Log::info("Create Request >> " . print_r($request->all(), true));
+        $this->service->createCategory($request->toArray());
+
+        return view('home')->with('success', 'successfully created');
     }
 
     /**
@@ -59,7 +62,9 @@ class CategoryController extends Controller
     public function update(Request $request, string $id)
     {
         Log::info("request data >> " . print_r($request->toArray(), true));
-        return $this->service->updateCategoryById($id, $request->toArray());
+        $this->service->updateCategoryById($id, $request->toArray());
+
+        return view('home')->with('success', 'successfully updated');
     }
 
     /**
@@ -68,7 +73,8 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         Log::info("Category id to delete >> " . $id);
-        return $this->service->destroyCategoryById($id);
+        $this->service->destroyCategoryById($id);
+        return view('home')->with('success', 'successfully deleted');
     }
 
     // public function getByTitle(string $title)

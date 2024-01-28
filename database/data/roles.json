@@ -1,22 +1,22 @@
 [
     {
-        "identifier": "admin",
-        "name": "Admin Role"
-    },
-    {
-        "identifier": "teacher",
-        "name": "Teacher Role"
-    },
-    {
-        "identifier": "student",
-        "name": "Student Role"
-    },
-    {
         "identifier": "guest",
         "name": "Guest Role"
     },
     {
         "identifier": "member",
         "name": "Member Role"
+    },
+    {
+        "identifier": "student",
+        "name": "Student Role"
+    },
+    {
+        "identifier": "teacher",
+        "name": "Teacher Role"
+    },
+    {
+        "identifier": "admin",
+        "name": "Admin Role"
     }
 ]
