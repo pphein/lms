@@ -35,6 +35,17 @@
             display: inline-block;
         }
     </style>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
+    <script>
+        $(document).ready(function() {
+            $('#search').on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#main #data tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
 </head>
 
 <body id='body-pd' class="antialiased">
