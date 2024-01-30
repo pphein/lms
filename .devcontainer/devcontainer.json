@@ -56,7 +56,7 @@
                 "mikestead.dotenv",
                 "davidanson.vscode-markdownlint",
                 "tyriar.sort-lines",
-                "tgriesser.avro-schemas"
+                "tgriesser.avro-schemas",
             ]
         }
     },

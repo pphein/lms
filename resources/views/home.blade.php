@@ -417,7 +417,7 @@
                         <td>${r.category}</td>
                         <td>${r.published_date ?? ''}</td>
                         <td>
-                        <button type="button" class="view-book btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author": "${r.author}","publisher":"${r.publisher}","edition":"${r.edition}","price":"${r.price}","category":"${r.category}","published_date":"${r.published_date}"}' onClick="showBook(this.getAttribute('data-object'))"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="view-book btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author": "${r.author}","publisher":"${r.publisher}","edition":"${r.edition}","price":"${r.price}","category":"${r.category}","published_date":"${r.published_date}"}' onClick="showBook(this.getAttribute('data-object'))"><i class="fa-solid fa-eye"></i></i></button>
                         <button type="button" class="edit-book btn btn-sm btn-outline-primary" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author": "${r.author}","publisher":"${r.publisher}","edition":"${r.edition}","price":"${r.price}","category":"${r.category}","published_date":"${r.published_date}"}' onClick="editBook(this.getAttribute('data-object'))"><i class="fa-solid fa-pencil"></i></button>
                         <button type="button" class="delete-book btn btn-sm btn-outline-danger" data-object='{"id":"${r.id}","title":"${r.title}","summary": "${r.summary}","author": "${r.author}","publisher":"${r.publisher}","edition":"${r.edition}","price":"${r.price}","category":"${r.category}","published_date":"${r.published_date}"}' onClick="deleteBook(this.getAttribute('data-object'))"><i class="fa-solid fa-trash"></i></button>
                         </td>
@@ -712,7 +712,7 @@
                         <td>${r.address ?? ''}</td>
                         <td>${r.phone_number ?? ''}</td>
                         <td>
-                        <button type="button" class="view-author btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","pen_name":"${r.pen_name ?? ''}","name":"${r.name ?? ''}","profile":"${r.profile ?? ''}","address":"${r.address ?? ''}","phone_number":"${r.phone_number ?? ''}"}' onClick="showAuthor(this.getAttribute('data-object'))"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="view-author btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","pen_name":"${r.pen_name ?? ''}","name":"${r.name ?? ''}","profile":"${r.profile ?? ''}","address":"${r.address ?? ''}","phone_number":"${r.phone_number ?? ''}"}' onClick="showAuthor(this.getAttribute('data-object'))"><i class="fa-solid fa-eye"></i></i></button>
                         <button type="button" class="edit-author btn btn-sm btn-outline-primary" data-object='{"id":"${r.id}","pen_name":"${r.pen_name ?? ''}","name":"${r.name ?? ''}","profile":"${r.profile ?? ''}","address":"${r.address ?? ''}","phone_number":"${r.phone_number ?? ''}"}' onClick="editAuthor(this.getAttribute('data-object'))"><i class="fa-solid fa-pencil"></i></button>
                         <button type="button" class="delete-author btn btn-sm btn-outline-danger" data-object='{"id":"${r.id}","pen_name":"${r.pen_name ?? ''}","name":"${r.name ?? ''}","profile":"${r.profile ?? ''}","address":"${r.address ?? ''}","phone_number":"${r.phone_number ?? ''}"}' onClick="deleteAuthor(this.getAttribute('data-object'))"><i class="fa-solid fa-trash"></i></button>
                         </td>
@@ -750,6 +750,90 @@
             deleteButton.setAttribute('data-bs-target', '#popModal');
         }
     }
+
+    fetch('/api/publishers')
+        .then(res => {
+            return res.json();
+        })
+        .then(data => {
+            // alert(data);
+            showPublishers(data)
+        })
+        .catch(error => {
+            console.log(error);
+        })
+
+    function showPublishers(data) {
+        let publisher = `<thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Phone Number</th>
+                    <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>`;
+
+        // Loop to access all rows
+        data.forEach(r => {
+            publisher += `<tr>
+                        <th scope="row">${r.id}</th>
+                        <td>${r.name ?? ''}</td>
+                        <td>${r.address ?? ''}</td>
+                        <td>${r.phone_number ?? ''}</td>
+                        <td>
+                        <button type="button" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pencil"></i></button>
+                        <button type="button" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>`;
+        });
+
+        publisher += `</tbody>`;
+        // Setting innerHTML as tab variable
+        document.getElementById("publishers_table").innerHTML = publisher;
+    }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+
+        const showNavbar = (toggleId, navId, bodyId, headerId) => {
+            const toggle = document.getElementById(toggleId),
+                nav = document.getElementById(navId),
+                bodypd = document.getElementById(bodyId),
+                headerpd = document.getElementById(headerId)
+
+            // Validate that all variables exist
+            if (toggle && nav && bodypd && headerpd) {
+                toggle.addEventListener('click', () => {
+                    // show navbar
+                    nav.classList.toggle('show')
+                    // change icon
+                    toggle.classList.toggle('bx-x')
+                    // add padding to body
+                    bodypd.classList.toggle('body-pd')
+                    // add padding to header
+                    headerpd.classList.toggle('body-pd')
+                })
+            }
+        }
+
+        showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
+
+        /*===== LINK ACTIVE =====*/
+        const linkColor = document.querySelectorAll('.nav_link')
+
+        function colorLink() {
+            if (linkColor) {
+                linkColor.forEach(l => l.classList.remove('active'))
+                this.classList.add('active')
+            }
+        }
+        linkColor.forEach(l => l.addEventListener('click', colorLink))
+
+        // Your code to run since DOM is loaded and ready
+    });
 
     function showAuthor(author) {
         var obj = JSON.parse(author);
