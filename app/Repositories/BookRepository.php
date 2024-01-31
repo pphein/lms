@@ -34,10 +34,10 @@ class BookRepository implements BookRepositoryInterface
 
     public function createBook(array $data)
     {
-        $data['author'] = $this->author::createAuthor(['pen_name' => $data['author']])->id;
-        $data['publisher'] = $this->publisher::createPublisher(['name' => $data['publisher']])->id;
-        $data['edition'] = $this->edition::createEdition(['name' => $data['edition']])->id;
-        $data['category_id'] = $this->category::createCategory(['name' => $data['category']])->id;
+        $data['author'] = $this->author->createAuthor(['pen_name' => $data['author']])->id;
+        $data['publisher'] = $this->publisher->createPublisher(['name' => $data['publisher']])->id;
+        $data['edition'] = $this->edition->createEdition(['name' => $data['edition']])->id;
+        $data['category_id'] = $this->category->createCategory(['name' => $data['category']])->id;
         $attributes = [
             'title' => $data['title'],
             'author_id' => $data['author'],
@@ -54,10 +54,10 @@ class BookRepository implements BookRepositoryInterface
     public function updateBookById(int $id, array $data)
     {
         Log::info("Update Data >> " . print_r($data, true));
-        $data['author_id'] = $this->author::createAuthor(['pen_name' => $data['author']])->id;
-        $data['publisher_id'] = $this->publisher::createPublisher(['name' => $data['publisher']])->id;
-        $data['edition_id'] = $this->edition::createEdition(['name' => $data['edition']])->id;
-        $data['category_id'] = $this->category::createCategory(['name' => $data['category']])->id;
+        $data['author_id'] = $this->author->createAuthor(['pen_name' => $data['author']])->id;
+        $data['publisher_id'] = $this->publisher->createPublisher(['name' => $data['publisher']])->id;
+        $data['edition_id'] = $this->edition->createEdition(['name' => $data['edition']])->id;
+        $data['category_id'] = $this->category->createCategory(['name' => $data['category']])->id;
 
         Log::info("Formatted Data >> " . print_r($data, true));
         $this->model::findOrFail($id)->update($data);

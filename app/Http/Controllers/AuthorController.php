@@ -34,7 +34,10 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->service->createAuthor($request->toArray());
+        Log::info("Create Request >> " . print_r($request->all(), true));
+        $this->service->createAuthor($request->toArray());
+
+        return view('home')->with('success', 'successfully created');
     }
 
     /**

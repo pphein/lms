@@ -35,9 +35,9 @@ class EditionController extends Controller
     public function store(Request $request)
     {
         Log::info("Create Request >> " . print_r($request->all(), true));
-        $this->service->createEdition($request->toArray());
+        return $this->service->createEdition($request->toArray());
 
-        return view('home')->with('success', 'successfully created');
+        // return view('home')->with('success', 'successfully created');
     }
 
     /**
@@ -62,9 +62,9 @@ class EditionController extends Controller
     public function update(Request $request, string $id)
     {
         Log::info("request data >> " . print_r($request->toArray(), true));
-        $this->service->updateEditionById($id, $request->toArray());
+        return $this->service->updateEditionById($id, $request->toArray());
 
-        return view('home')->with('success', 'successfully updated');
+        // return view('home')->with('success', 'successfully updated');
     }
 
     /**
@@ -72,7 +72,7 @@ class EditionController extends Controller
      */
     public function destroy(string $id)
     {
-        Log::info("Book id to delete >> " . $id);
+        Log::info("Edition id to delete >> " . $id);
         $this->service->destroyEditionById($id);
         return view('home')->with('success', 'successfully deleted');
     }

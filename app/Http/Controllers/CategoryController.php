@@ -35,7 +35,7 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         Log::info("Create Request >> " . print_r($request->all(), true));
-        $this->service->createCategory($request->toArray());
+        return $this->service->createCategory($request->toArray());
 
         return view('home')->with('success', 'successfully created');
     }

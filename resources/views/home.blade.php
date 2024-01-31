@@ -225,7 +225,7 @@
                         <th scope="row">${r.id}</th>
                         <td>${r.name}</td>
                         <td>
-                        <button type="button" class="view-category btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","name":"${r.name}"}' onClick="showCategory(this.getAttribute('data-object'))"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="view-category btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","name":"${r.name}"}' onClick="showCategory(this.getAttribute('data-object'))"><i class="fa-solid fa-eye"></i></button>
                         <button type="button" class="edit-category btn btn-sm btn-outline-primary" data-object='{"id":"${r.id}","name":"${r.name}"}' onClick="editCategory(this.getAttribute('data-object'))"><i class="fa-solid fa-pencil"></i></button>
                         <button type="button" class="edit-category btn btn-sm btn-outline-danger" data-object='{"id":"${r.id}","name":"${r.name}"}' onClick="deleteCategory(this.getAttribute('data-object'))"><i class="fa-solid fa-trash"></i></button>
                         </td>
@@ -513,13 +513,7 @@
                                 <div class="row mb-4">
                                     <label for="edition" class="col-md-2 col-form-label text-md-end">{{ __('Edition') }}</label>
                                     <div class="col-md-10">
-                                        <input id="edition" type="text" class="form-control" name="edition" value="${obj.edition}" required autocomplete="current-edition">
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected>Open this select menu</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
-                                        </select>
+                                        <input list="editionList" id="edition" type="text" class="form-control" name="edition" value="${obj.edition}" required autocomplete="current-edition">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
@@ -751,90 +745,6 @@
         }
     }
 
-    fetch('/api/publishers')
-        .then(res => {
-            return res.json();
-        })
-        .then(data => {
-            // alert(data);
-            showPublishers(data)
-        })
-        .catch(error => {
-            console.log(error);
-        })
-
-    function showPublishers(data) {
-        let publisher = `<thead>
-                    <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Address</th>
-                    <th scope="col">Phone Number</th>
-                    <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>`;
-
-        // Loop to access all rows
-        data.forEach(r => {
-            publisher += `<tr>
-                        <th scope="row">${r.id}</th>
-                        <td>${r.name ?? ''}</td>
-                        <td>${r.address ?? ''}</td>
-                        <td>${r.phone_number ?? ''}</td>
-                        <td>
-                        <button type="button" class="btn btn-sm btn-outline-success"><i class="fa-solid fa-check"></i></button>
-                        <button type="button" class="btn btn-sm btn-outline-primary"><i class="fa-solid fa-pencil"></i></button>
-                        <button type="button" class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
-                        </td>
-                    </tr>`;
-        });
-
-        publisher += `</tbody>`;
-        // Setting innerHTML as tab variable
-        document.getElementById("publishers_table").innerHTML = publisher;
-    }
-</script>
-<script>
-    document.addEventListener("DOMContentLoaded", function(event) {
-
-        const showNavbar = (toggleId, navId, bodyId, headerId) => {
-            const toggle = document.getElementById(toggleId),
-                nav = document.getElementById(navId),
-                bodypd = document.getElementById(bodyId),
-                headerpd = document.getElementById(headerId)
-
-            // Validate that all variables exist
-            if (toggle && nav && bodypd && headerpd) {
-                toggle.addEventListener('click', () => {
-                    // show navbar
-                    nav.classList.toggle('show')
-                    // change icon
-                    toggle.classList.toggle('bx-x')
-                    // add padding to body
-                    bodypd.classList.toggle('body-pd')
-                    // add padding to header
-                    headerpd.classList.toggle('body-pd')
-                })
-            }
-        }
-
-        showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header')
-
-        /*===== LINK ACTIVE =====*/
-        const linkColor = document.querySelectorAll('.nav_link')
-
-        function colorLink() {
-            if (linkColor) {
-                linkColor.forEach(l => l.classList.remove('active'))
-                this.classList.add('active')
-            }
-        }
-        linkColor.forEach(l => l.addEventListener('click', colorLink))
-
-        // Your code to run since DOM is loaded and ready
-    });
-
     function showAuthor(author) {
         var obj = JSON.parse(author);
         var view = document.getElementById('popModal');
@@ -844,22 +754,22 @@
         view.style.display = 'block';
         var content = `<div class="bg-light flex">
                              <form>
-                             <div class="row mb-4">
+                                <div class="row mb-4">
                                     <label for="pen_name" class="col-md-4 col-form-label text-md-end">{{ __('Pen Name') }}</label>
                                     <div class="col-md-8">
-                                        <input id="pen_name" type="text" class="form-control" name="pen_name" value="${obj.pen_name}" required autocomplete="title" autofocus readonly>
+                                        <input id="pen_name" type="text" class="form-control" name="pen_name" value="${obj.pen_name}" required autocomplete="current-pen-name" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
                                     <div class="col-md-8">
-                                        <input id="name" type="text" class="form-control" name="name" value="${obj.name}" required autocomplete="current-name" readonly>
+                                        <input id="name" type="text" class="form-control" name="name" value="${obj.name ?? ''}" required autocomplete="current-name" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
                                     <label for="profile" class="col-md-4 col-form-label text-md-end">{{ __('Profile') }}</label>
                                     <div class="col-md-8">
-                                        <textarea id="profile" type="text" class="form-control" name="profile" value="" required autocomplete="current-author" readonly>${obj.profile ?? ''}</textarea>
+                                        <input id="profile" type="text" class="form-control" name="profile" value="${obj.profile ?? ''}" required autocomplete="current-profile" readonly>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
@@ -888,14 +798,68 @@
         view.setAttribute('role', 'dialog');
         view.style.display = 'block';
         var content = `<div class="bg-light flex">
-                        <h1 class="text-center">Edit Form</h1>
-                            <form method="POST" action="{{ route('update-author') }}">
+                <h1 class="text-center">Edit Form</h1>
+                    <form method="POST" action="{{ route('update-author') }}">
+                        @csrf
+                        <input type="hidden" name="id" value="${obj.id}">
+                        <div class="row mb-4">
+                            <label for="pen_name" class="col-md-4 col-form-label text-md-end">{{ __('Pen Name') }}</label>
+                            <div class="col-md-8">
+                                <input id="pen_name" type="text" class="form-control" name="pen_name" value="${obj.pen_name}" autocomplete="current-pen-name">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                            <div class="col-md-8">
+                                <input id="name" type="text" class="form-control" name="name" value="${obj.name}" autocomplete="current-name">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <label for="profile" class="col-md-4 col-form-label text-md-end">{{ __('Profile') }}</label>
+                            <div class="col-md-8">
+                                <input id="profile" type="text" class="form-control" name="profile" value="${obj.profile}" autocomplete="current-profile">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Address') }}</label>
+                            <div class="col-md-8">
+                                <input id="address" type="text" class="form-control" name="address" value="${obj.address}" autocomplete="current-address">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <label for="phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Phone Number') }}</label>
+                            <div class="col-md-8">
+                                <input id="phone_number" type="tel" pattern="^(09)[0-9]{7,9}$" class="form-control" name="phone_number" value="${obj.phone_number}" autocomplete="current-phone_number">
+                            </div>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-8 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Update') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+            </div>`;
+        document.querySelector('.modal-body').innerHTML = content;
+    }
+
+    function deleteAuthor(author) {
+        var obj = JSON.parse(author);
+        var view = document.getElementById('popModal');
+        view.classList.add('show');
+        view.setAttribute('aria-modal', 'true');
+        view.setAttribute('role', 'dialog');
+        view.style.display = 'block';
+        var content = `<div class="bg-light flex">
+                            <h1 class="text-center">Delete this author</h1>
+                            <form method="POST" action="{{ route('delete-author') }}">
                                 @csrf
                                 <input type="hidden" name="id" value="${obj.id}">
                                 <div class="row mb-4">
                                     <label for="pen_name" class="col-md-4 col-form-label text-md-end">{{ __('Pen Name') }}</label>
                                     <div class="col-md-8">
-                                        <input id="pen_name" type="text" class="form-control" name="pen_name" value="${obj.pen_name}" required autocomplete="pen_name" autofocus>
+                                        <input id="pen_name" type="text" class="form-control" name="pen_name" value="${obj.pen_name}" autocomplete="current-pen-name">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
@@ -907,7 +871,7 @@
                                 <div class="row mb-4">
                                     <label for="profile" class="col-md-4 col-form-label text-md-end">{{ __('Profile') }}</label>
                                     <div class="col-md-8">
-                                        <textarea id="profile" type="text" class="form-control" name="profile" value="" autocomplete="current-author">${obj.profile}</textarea>
+                                        <input id="profile" type="text" class="form-control" name="profile" value="${obj.profile}" autocomplete="current-profile">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
@@ -920,61 +884,6 @@
                                     <label for="phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Phone Number') }}</label>
                                     <div class="col-md-8">
                                         <input id="phone_number" type="tel" pattern="^(09)[0-9]{7,9}$" class="form-control" name="phone_number" value="${obj.phone_number}" autocomplete="current-phone_number">
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <div class="col-md-8 offset-md-4">
-                                        <button type="submit" class="btn btn-primary">
-                                            {{ __('Update') }}
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                    </div>`;
-        document.querySelector('.modal-body').innerHTML = content;
-    }
-
-    function deleteAuthor(author) {
-
-        var obj = JSON.parse(author);
-        var view = document.getElementById('popModal');
-        view.classList.add('show');
-        view.setAttribute('aria-modal', 'true');
-        view.setAttribute('role', 'dialog');
-        view.style.display = 'block';
-        var content = `<div class="bg-light flex">
-                            <h1 class="text-center">Delete this book</h1>
-                            <form method="POST" action="{{ route('delete-author') }}">
-                                @csrf
-                                <input type="hidden" name="id" value="${obj.id}">
-                                <div class="row mb-4">
-                                    <label for="pen_name" class="col-md-4 col-form-label text-md-end">{{ __('Pen Name') }}</label>
-                                    <div class="col-md-8">
-                                        <input id="pen_name" type="text" class="form-control" name="pen_name" value="${obj.pen_name}" required autocomplete="pen_name" autofocus>
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
-                                    <div class="col-md-8">
-                                        <input id="name" type="text" class="form-control" name="name" value="${obj.name}" autocomplete="current-name">
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <label for="profile" class="col-md-4 col-form-label text-md-end">{{ __('Profile') }}</label>
-                                    <div class="col-md-8">
-                                        <textarea id="profile" type="text" class="form-control" name="profile" value="" autocomplete="current-author">${obj.profile}</textarea>
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <label for="address" class="col-md-4 col-form-label text-md-end">{{ __('Address') }}</label>
-                                    <div class="col-md-8">
-                                        <input id="address" type="text" class="form-control" name="address" value="${obj.address}" autocomplete="current-address">
-                                    </div>
-                                </div>
-                                <div class="row mb-4">
-                                    <label for="phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Phone Number') }}</label>
-                                    <div class="col-md-8">
-                                        <input id="phone_number" type="tel" class="form-control" name="phone_number" value="${obj.phone_number}" autocomplete="current-phone_number">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
@@ -996,13 +905,13 @@
         view.setAttribute('role', 'dialog');
         view.style.display = 'block';
         var content = `<div class="bg-light flex">
-                            <h1 class="text-center">Create an author</h1>
+                            <h1 class="text-center">Create a author</h1>
                             <form method="POST" action="{{ route('create-author') }}">
                                 @csrf
                                 <div class="row mb-4">
                                     <label for="pen_name" class="col-md-4 col-form-label text-md-end">{{ __('Pen Name') }}</label>
                                     <div class="col-md-8">
-                                        <input id="pen_name" type="text" class="form-control" name="pen_name" value="" required autocomplete="pen_name" autofocus>
+                                        <input id="pen_name" type="text" class="form-control" name="pen_name" value="" autocomplete="current-pen-name">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
@@ -1014,7 +923,7 @@
                                 <div class="row mb-4">
                                     <label for="profile" class="col-md-4 col-form-label text-md-end">{{ __('Profile') }}</label>
                                     <div class="col-md-8">
-                                        <textarea id="profile" type="text" class="form-control" name="profile" value="" autocomplete="current-author"></textarea>
+                                        <input id="profile" type="text" class="form-control" name="profile" value="" autocomplete="current-profile">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
@@ -1026,7 +935,7 @@
                                 <div class="row mb-4">
                                     <label for="phone_number" class="col-md-4 col-form-label text-md-end">{{ __('Phone Number') }}</label>
                                     <div class="col-md-8">
-                                        <input id="phone_number" type="tel" placeholder="09123456789" pattern="(09)[0-9]{9}" class="form-control" name="phone_number" value="" autocomplete="current-phone_number">
+                                        <input id="phone_number" type="tel" pattern="^(09)[0-9]{7,9}$" class="form-control" name="phone_number" value="" autocomplete="current-phone_number">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
@@ -1084,7 +993,7 @@
                         <td>${r.address ?? ''}</td>
                         <td>${r.phone_number ?? ''}</td>
                         <td>
-                        <button type="button" class="view-publisher btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","name":"${r.name}","address":"${r.address ??''}","phone_number":"${r.phone_number ??''}"}' onClick="showPublisher(this.getAttribute('data-object'))"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="view-publisher btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","name":"${r.name}","address":"${r.address ??''}","phone_number":"${r.phone_number ??''}"}' onClick="showPublisher(this.getAttribute('data-object'))"><i class="fa-solid fa-eye"></i></button>
                         <button type="button" class="edit-publisher btn btn-sm btn-outline-primary" data-object='{"id":"${r.id}","name":"${r.name ??''}","address":"${r.address ??''}","phone_number":"${r.phone_number ??''}"}' onClick="editPublisher(this.getAttribute('data-object'))"><i class="fa-solid fa-pencil"></i></button>
                         <button type="button" class="delete-publisher btn btn-sm btn-outline-danger" data-object='{"id":"${r.id}","name":"${r.name}","address":"${r.address ??''}","phone_number":"${r.phone_number ??''}"}' onClick="deletePublisher(this.getAttribute('data-object'))"><i class="fa-solid fa-trash"></i></button>
                         </td>
@@ -1319,7 +1228,7 @@
                         <th scope="row">${r.id}</th>
                         <td>${r.name}</td>
                         <td>
-                        <button type="button" class="view-edition btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","name":"${r.name}"}' onClick="showEdition(this.getAttribute('data-object'))"><i class="fa-solid fa-check"></i></button>
+                        <button type="button" class="view-edition btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","name":"${r.name}"}' onClick="showEdition(this.getAttribute('data-object'))"><i class="fa-solid fa-eye"></i></button>
                         <button type="button" class="edit-edition btn btn-sm btn-outline-primary" data-object='{"id":"${r.id}","name":"${r.name}"}' onClick="editEdition(this.getAttribute('data-object'))"><i class="fa-solid fa-pencil"></i></button>
                         <button type="button" class="edit-edition btn btn-sm btn-outline-danger" data-object='{"id":"${r.id}","name":"${r.name}"}' onClick="deleteEdition(this.getAttribute('data-object'))"><i class="fa-solid fa-trash"></i></button>
                         </td>

@@ -23,6 +23,7 @@ class ApiController extends Controller
             $response = Http::timeout(100)->post($apiUrl, $createdData);
 
             // Check the response and handle any errors or success messages accordingly
+            Log::info($response->getStatusCode());
             if ($response->getStatusCode() === 200) {
                 // Success handling
                 Log::debug("Success");
@@ -52,6 +53,7 @@ class ApiController extends Controller
             $response = Http::put($apiUrl, $updatedData);
 
             // Check the response and handle any errors or success messages accordingly
+            Log::info($response->getStatusCode());
             if ($response->getStatusCode() === 200) {
                 // Success handling
                 Log::debug("Success");
@@ -81,6 +83,7 @@ class ApiController extends Controller
             $response = Http::delete($apiUrl);
 
             // Check the response and handle any errors or success messages accordingly
+            Log::info($response->getStatusCode());
             if ($response->getStatusCode() === 200) {
                 // Success handling
                 Log::debug("Success");
@@ -110,6 +113,7 @@ class ApiController extends Controller
             $response = Http::post($apiUrl, $createdData);
 
             // Check the response and handle any errors or success messages accordingly
+            Log::info($response->getStatusCode());
             if ($response->getStatusCode() === 200) {
                 // Success handling
                 Log::debug("Success");
@@ -139,6 +143,7 @@ class ApiController extends Controller
             $response = Http::put($apiUrl, $updatedData);
 
             // Check the response and handle any errors or success messages accordingly
+            Log::info($response->getStatusCode());
             if ($response->getStatusCode() === 200) {
                 // Success handling
                 Log::debug("Success");
@@ -168,6 +173,7 @@ class ApiController extends Controller
             $response = Http::delete($apiUrl);
 
             // Check the response and handle any errors or success messages accordingly
+            Log::info($response->getStatusCode());
             if ($response->getStatusCode() === 200) {
                 // Success handling
                 Log::debug("Success");
@@ -197,7 +203,8 @@ class ApiController extends Controller
             $response = Http::post($apiUrl, $createdData);
 
             // Check the response and handle any errors or success messages accordingly
-            if ($response->getStatusCode() === 200) {
+            Log::info($response->getStatusCode());
+            if ($response->getStatusCode() === 201) {
                 // Success handling
                 Log::debug("Success");
                 return redirect()->back()->with('success', 'Record created successfully');
@@ -226,6 +233,7 @@ class ApiController extends Controller
             $response = Http::put($apiUrl, $updatedData);
 
             // Check the response and handle any errors or success messages accordingly
+            Log::info($response->getStatusCode());
             if ($response->getStatusCode() === 200) {
                 // Success handling
                 Log::debug("Success");
@@ -284,7 +292,8 @@ class ApiController extends Controller
             $response = Http::post($apiUrl, $createdData);
 
             // Check the response and handle any errors or success messages accordingly
-            if ($response->getStatusCode() === 200) {
+            Log::info($response->getStatusCode());
+            if ($response->getStatusCode() === 201) {
                 // Success handling
                 Log::debug("Success");
                 return redirect()->back()->with('success', 'Record created successfully');
@@ -313,6 +322,7 @@ class ApiController extends Controller
             $response = Http::put($apiUrl, $updatedData);
 
             // Check the response and handle any errors or success messages accordingly
+            Log::info($response->getStatusCode());
             if ($response->getStatusCode() === 200) {
                 // Success handling
                 Log::debug("Success");
@@ -342,6 +352,7 @@ class ApiController extends Controller
             $response = Http::delete($apiUrl);
 
             // Check the response and handle any errors or success messages accordingly
+            Log::info($response->getStatusCode());
             if ($response->getStatusCode() === 200) {
                 // Success handling
                 Log::debug("Success");
@@ -371,6 +382,7 @@ class ApiController extends Controller
             $response = Http::timeout(100)->post($apiUrl, $createdData);
 
             // Check the response and handle any errors or success messages accordingly
+            Log::info($response->getStatusCode());
             if ($response->getStatusCode() === 200) {
                 // Success handling
                 Log::debug("Success");
@@ -393,7 +405,7 @@ class ApiController extends Controller
         $updatedData = $request->except('_token');
 
         // Specify the API endpoint URL
-        $apiUrl = 'localhost:8001/api/edition/' . $request->input('id');
+        $apiUrl = 'localhost:8001/api/editions/' . $request->input('id');
 
         try {
             Log::info("Updated Data >> " . print_r($updatedData, true));
@@ -422,13 +434,14 @@ class ApiController extends Controller
         $updatedData = $request->except('_token');
 
         // Specify the API endpoint URL
-        $apiUrl = 'localhost:8001/api/books/' . $request->input('id');
+        $apiUrl = 'localhost:8001/api/editions/' . $request->input('id');
 
         try {
             Log::info("Deleted Data >> " . print_r($updatedData, true));
             $response = Http::delete($apiUrl);
 
             // Check the response and handle any errors or success messages accordingly
+            Log::info($response->getStatusCode());
             if ($response->getStatusCode() === 200) {
                 // Success handling
                 Log::debug("Success");
