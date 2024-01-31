@@ -412,6 +412,7 @@ class ApiController extends Controller
             $response = Http::put($apiUrl, $updatedData);
 
             // Check the response and handle any errors or success messages accordingly
+            Log::info($response->getStatusCode());
             if ($response->getStatusCode() === 200) {
                 // Success handling
                 Log::debug("Success");

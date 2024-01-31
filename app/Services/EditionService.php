@@ -48,32 +48,4 @@ class EditionService implements EditionServiceInterface
 
         return true;
     }
-
-    // public function getBookByTitle(string $title)
-    // {
-    //     $result = $this->edition->getBookByTitle($title);
-
-    //     return new EditionResource($result);
-    // }
-
-    public function getBookByAuthor(string $author)
-    {
-        $result = $this->edition->getBookByAuthor($author);
-
-        return new BookCollection($result);
-    }
-
-    // public function getBookByPublisher(string $publisher)
-    // {
-    //     $result = $this->edition->getBookByPublisher($publisher);
-
-    //     return new EditionResource($result);
-    // }
-
-    public function searchBook(string $key, string $value)
-    {
-        $result = $this->edition->searchBook($key, $value);
-
-        return new EditionResource($result);
-    }
 }
