@@ -17,10 +17,14 @@
             <div class="nav_list">
                 <a href="#" class="nav_link active" onclick="getStats()">
                     <i class='bx bx-bar-chart-alt-2 nav_icon'></i>
-                    <span class=" nav_name">Dashboard</span>
+                    <span class="nav_name">Dashboard</span>
                 </a>
-                <a href="#categories" class="nav_link" onclick="changeMainData('categories');">
-                    <i class='bx bx-grid-alt nav_icon'></i>
+                <a href="#" class="nav_link" onclick="changeMainData('users')">
+                    <i class='bx bx-group nav_icon'></i>
+                    <span class="nav_name">Users</span>
+                </a>
+                <a href="#" class="nav_link" onclick="changeMainData('categories');">
+                    <i class='bx bx-category nav_icon'></i>
                     <span class="nav_name">Categories</span>
                 </a>
                 <a href="#" class="nav_link" onclick="changeMainData('books')">
@@ -130,9 +134,17 @@
             </div>
         </div>
     </section>
+    <section id="users" class="pt-5 d-none">
+        <h1 class="d-inline-block mx-2">Users</h1>
+        <button id="new-user" type="button" class="btn btn-sm btn-outline-success mb-2" data-bs-toggle="modal" data-bs-target="#popModal" onclick="newUser()"><i class="fa-solid fa-plus"></i></button>
+        <div class="table-responsive-sm">
+            <table id="users_table" class="table table-responsive table-striped">
+            </table>
+        </div>
+    </section>
     <section id="categories" class="pt-5 d-none">
         <h1 class="d-inline-block mx-2">Categories</h1>
-        <button id="new-book" type="button" class="btn btn-sm btn-outline-success mb-2" data-bs-toggle="modal" data-bs-target="#popModal" onclick="newCategory()"><i class="fa-solid fa-plus"></i></button>
+        <button id="new-category" type="button" class="btn btn-sm btn-outline-success mb-2" data-bs-toggle="modal" data-bs-target="#popModal" onclick="newCategory()"><i class="fa-solid fa-plus"></i></button>
         <div class="table-responsive-sm">
             <table id="categories_table" class="table table-responsive table-striped">
             </table>
@@ -148,7 +160,7 @@
     </section>
     <section id="authors" class="pt-5 d-none">
         <h1 class="d-inline-block mx-2">Authors</h1>
-        <button id="new-book" type="button" class="btn btn-sm btn-outline-success mb-3" data-bs-toggle="modal" data-bs-target="#popModal" onclick="newAuthor()"><i class="fa-solid fa-plus"></i></button>
+        <button id="new-author" type="button" class="btn btn-sm btn-outline-success mb-3" data-bs-toggle="modal" data-bs-target="#popModal" onclick="newAuthor()"><i class="fa-solid fa-plus"></i></button>
         <div class="table-responsive-sm">
             <table id="authors_table" class="table table-responsive table-striped">
             </table>
@@ -156,7 +168,7 @@
     </section>
     <section id="publishers" class="pt-5 d-none">
         <h1 class="d-inline-block mx-2">Publishers</h1>
-        <button id="new-book" type="button" class="btn btn-sm btn-outline-success mb-3" data-bs-toggle="modal" data-bs-target="#popModal" onclick="newPublisher()"><i class="fa-solid fa-plus"></i></button>
+        <button id="new-publisher" type="button" class="btn btn-sm btn-outline-success mb-3" data-bs-toggle="modal" data-bs-target="#popModal" onclick="newPublisher()"><i class="fa-solid fa-plus"></i></button>
         <div class="table-responsive-sm table-responsive-md">
             <table id="publishers_table" class="table table-responsive table-striped">
             </table>
@@ -186,7 +198,253 @@
         </p>
     </div>
 </footer>
-<!-- Category Script -->
+<!-- User Script -->
+<script>
+    fetch('/api/users')
+        .then(res => {
+            return res.json();
+        })
+        .then(data => {
+            showUsers(data.data)
+            // suggestUsers(data.data)
+        })
+        .catch(error => {
+            console.log(error);
+        })
+
+    // function suggestUsers(data) {
+    //     var userList = document.getElementById("userList");
+    //     data.forEach(r => {
+    //         var option = document.createElement('option');
+    //         option.value = r.name;
+    //         userList.appendChild(option);
+    //     })
+    // }
+
+    function showUsers(data) {
+        let user = `<thead>
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="data">`;
+
+        // Loop to access all rows
+        data.forEach(r => {
+            user += `<tr>
+                        <th scope="row">${r.id}</th>
+                        <td>${r.name}</td>
+                        <td>${r.email}</td>
+                        <td>${r.role}</td>
+                        <td>
+                        <button type="button" class="view-user btn btn-sm btn-outline-success" data-object='{"id":"${r.id}","name":"${r.name}","email":"${r.email}", "role":"${r.role}"}' onClick="showUser(this.getAttribute('data-object'))"><i class="fa-solid fa-eye"></i></button>
+                        <button type="button" class="edit-user btn btn-sm btn-outline-primary" data-object='{"id":"${r.id}","name":"${r.name}","email":"${r.email}", "role":"${r.role}"}' onClick="editUser(this.getAttribute('data-object'))"><i class="fa-solid fa-pencil"></i></button>
+                        <button type="button" class="edit-user btn btn-sm btn-outline-danger" data-object='{"id":"${r.id}","name":"${r.name}","email":"${r.email}", "role":"${r.role}"}' onClick="deleteUser(this.getAttribute('data-object'))"><i class="fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>`;
+        });
+
+        user += `</tbody>`;
+        // Setting innerHTML as tab variable
+        document.getElementById("users_table").innerHTML = user;
+
+        var showButtons = document.querySelectorAll('.view-user');
+
+        for (var i = 0; i < showButtons.length; i++) {
+            var showButton = showButtons[i];
+            showButton.removeAttribute('type');
+            showButton.setAttribute('data-bs-toggle', 'modal');
+            showButton.setAttribute('data-bs-target', '#popModal');
+        }
+
+        var editButtons = document.querySelectorAll('.edit-user');
+
+        for (var i = 0; i < editButtons.length; i++) {
+            var editButton = editButtons[i];
+            editButton.removeAttribute('type');
+            editButton.setAttribute('data-bs-toggle', 'modal');
+            editButton.setAttribute('data-bs-target', '#popModal');
+        }
+
+        var deleteButtons = document.querySelectorAll('.delete-user');
+
+        for (var i = 0; i < deleteButtons.length; i++) {
+            var deleteButton = deleteButtons[i];
+            deleteButton.removeAttribute('type');
+            deleteButton.setAttribute('data-bs-toggle', 'modal');
+            deleteButton.setAttribute('data-bs-target', '#popModal');
+        }
+    }
+
+    function showUser(user) {
+        var obj = JSON.parse(user);
+        var view = document.getElementById('popModal');
+        view.classList.add('show');
+        view.setAttribute('aria-modal', 'true');
+        view.setAttribute('role', 'dialog');
+        view.style.display = 'block';
+        var content = `<div class="bg-light flex">
+                             <form>
+                                <div class="row mb-4">
+                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('name') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="name" type="text" class="form-control" name="name" value="${obj.name}" required autocomplete="current-name" readonly>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="email" type="email" class="form-control" name="email" value="${obj.email}" required autocomplete="current-email" readonly>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="role" type="text" class="form-control" name="role" value="${obj.role}" required autocomplete="current-role" readonly>
+                                    </div>
+                                </div>
+                            </form>
+                    </div>`;
+        document.querySelector('.modal-body').innerHTML = content;
+    }
+
+    function editUser(user) {
+
+        var obj = JSON.parse(user);
+        var view = document.getElementById('popModal');
+        view.classList.add('show');
+        view.setAttribute('aria-modal', 'true');
+        view.setAttribute('role', 'dialog');
+        view.style.display = 'block';
+        var content = `<div class="bg-light flex">
+                        <h1 class="text-center">Edit Form</h1>
+                            <form method="POST" action="{{ route('update-user') }}">
+                                @csrf
+                                <input type="hidden" name="id" value="${obj.id}">
+                                <div class="row mb-4">
+                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="name" type="text" class="form-control" name="name" value="${obj.name}" autocomplete="current-name">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="email" type="email" class="form-control" name="email" value="${obj.email}" autocomplete="current-email">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="role" type="text" class="form-control" name="role" value="${obj.role}" autocomplete="current-role">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-8 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Update') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                    </div>`;
+        document.querySelector('.modal-body').innerHTML = content;
+    }
+
+    function deleteUser(user) {
+
+        var obj = JSON.parse(user);
+        var view = document.getElementById('popModal');
+        view.classList.add('show');
+        view.setAttribute('aria-modal', 'true');
+        view.setAttribute('role', 'dialog');
+        view.style.display = 'block';
+        var content = `<div class="bg-light flex">
+                            <h1 class="text-center">Delete this user</h1>
+                            <form method="POST" action="{{ route('delete-category') }}">
+                                @csrf
+                                <input type="hidden" name="id" value="${obj.id}">
+                                <div class="row mb-4">
+                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="name" type="text" class="form-control" name="name" value="${obj.name}" autocomplete="current-name" readonly>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="email" type="email" class="form-control" name="email" value="${obj.email}" autocomplete="current-email" readonly>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="role" type="text" class="form-control" name="role" value="${obj.role}" autocomplete="current-role" readonly>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-8 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Confirm') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>`;
+        document.querySelector('.modal-body').innerHTML = content;
+    }
+
+    function newUser() {
+        var view = document.getElementById('popModal');
+        view.classList.add('show');
+        view.setAttribute('aria-modal', 'true');
+        view.setAttribute('role', 'dialog');
+        view.style.display = 'block';
+        var content = `<div class="bg-light flex">
+                            <h1 class="text-center">Create a user</h1>
+                            <form method="POST" action="{{ route('create-user') }}">
+                                @csrf
+                                <div class="row mb-4">
+                                    <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="name" type="text" class="form-control" name="name" value="" autocomplete="current-name">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="email" type="email" class="form-control" name="email" value="" autocomplete="current-email">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="password" type="password" class="form-control" name="password" value="" autocomplete="current-email">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
+                                    <div class="col-md-8">
+                                        <input id="role" type="text" class="form-control" name="role" value="" autocomplete="current-role">
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col-md-8 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Save') }}
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>`;
+        document.querySelector('.modal-body').innerHTML = content;
+    }
+</script>
+<!-- User Script -->
 <script>
     fetch('/api/categories')
         .then(res => {

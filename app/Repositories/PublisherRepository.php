@@ -48,7 +48,7 @@ class PublisherRepository implements PublisherRepositoryInterface
     public function deletePublisherById(int $id)
     {
         $result = $this->model::findOrFail($id)->update(['status' => StatusEnum::DELETED->value]);
-        Log::info("Deleted Publisher >> " . $result . " Publisher " . print_r($this->model::findOrFail($id), true));
+        Log::info("Deleted Publisher >> " . $result . " Publisher " . print_r($this->model::findOrFail($id)->toArray(), true));
         return $this->model::findOrFail($id)->refresh();
     }
 

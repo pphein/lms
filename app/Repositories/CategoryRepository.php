@@ -48,7 +48,7 @@ class CategoryRepository implements CategoryRepositoryInterface
     public function deleteCategoryById(int $id)
     {
         $result = $this->model::findOrFail($id)->update(['status' => 1]);
-        Log::info("Deleted Category >> " . $result . " Category " . print_r($this->model::findOrFail($id), true));
+        Log::info("Deleted Category >> " . $result . " Category " . print_r($this->model::findOrFail($id)->toArray(), true));
         return $this->model::findOrFail($id)->refresh();
     }
 

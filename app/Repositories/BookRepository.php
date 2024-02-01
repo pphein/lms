@@ -70,7 +70,7 @@ class BookRepository implements BookRepositoryInterface
     public function deleteBookById(int $id)
     {
         $result = $this->model::findOrFail($id)->update(['status' => StatusEnum::DELETED->value]);
-        Log::info("Deleted author >> " . $result . " author " . print_r($this->model::findOrFail($id), true));
+        Log::info("Deleted author >> " . $result . " author " . print_r($this->model::findOrFail($id)->toArray(), true));
         return $this->model::findOrFail($id)->refresh();
     }
 

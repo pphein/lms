@@ -11,7 +11,8 @@ class Edition extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name'
+        'name',
+        'status'
     ];
 
     public function books(): BelongsToMany

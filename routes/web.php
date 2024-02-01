@@ -22,6 +22,10 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::post('/createUser', [ApiController::class, 'createUser'])->name('create-user');
+Route::post('/updateUser', [ApiController::class, 'updateUser'])->name('update-user');
+Route::post('/deleteUser', [ApiController::class, 'deleteUser'])->name('delete-user');
+
 Route::post('/createBook', [ApiController::class, 'createBook'])->name('create-book');
 Route::post('/updateBook', [ApiController::class, 'updateBook'])->name('update-book');
 Route::post('/deleteBook', [ApiController::class, 'deleteBook'])->name('delete-book');

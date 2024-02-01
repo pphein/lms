@@ -47,8 +47,8 @@ class EditionRepository implements EditionRepositoryInterface
 
     public function deleteEditionById(int $id)
     {
-        $result = $this->model::findOrFail($id)->update(['status' => StatusEnum::DELETED->value]);
-        Log::info("Deleted Edition >> " . $result . " Edition " . print_r($this->model::findOrFail($id), true));
+        $result = $this->model::findOrFail($id)->update(['status' => 1]);
+        Log::info("Deleted Edition >> " . $result . " Edition " . print_r($this->model::findOrFail($id)->toArray(), true));
         return $this->model::findOrFail($id)->refresh();
     }
 

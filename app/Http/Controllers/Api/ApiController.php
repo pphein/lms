@@ -10,6 +10,96 @@ use Illuminate\Support\Facades\Log;
 
 class ApiController extends Controller
 {
+    public function createUser(Request $request)
+    {
+        // Get the updated data from the request
+        $createdData = $request->except('_token');
+
+        // Specify the API endpoint URL
+        $apiUrl = 'localhost:8001/api/users';
+
+        try {
+            Log::info("Created Data >> " . print_r($createdData, true));
+            $response = Http::timeout(100)->post($apiUrl, $createdData);
+
+            // Check the response and handle any errors or success messages accordingly
+            Log::info($response->getStatusCode());
+            if ($response->getStatusCode() === 200) {
+                // Success handling
+                Log::debug("Success");
+                return redirect()->back()->with('success', 'Record created successfully');
+            } else {
+                // Error handling
+                Log::debug("Fail");
+                return redirect()->back()->with('error', 'Failed to create record');
+            }
+        } catch (\Exception $e) {
+            // Exception handling
+            Log::debug("Exception >> " . $e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while updating the record');
+        }
+    }
+
+    public function updateUser(Request $request)
+    {
+        // Get the updated data from the request
+        $updatedData = $request->except('_token');
+
+        // Specify the API endpoint URL
+        $apiUrl = 'localhost:8001/api/users/' . $request->input('id');
+
+        try {
+            Log::info("Updated Data >> " . print_r($updatedData, true));
+            $response = Http::put($apiUrl, $updatedData);
+
+            // Check the response and handle any errors or success messages accordingly
+            Log::info($response->getStatusCode());
+            if ($response->getStatusCode() === 200) {
+                // Success handling
+                Log::debug("Success");
+                return redirect()->back()->with('success', 'Record updated successfully');
+            } else {
+                // Error handling
+                Log::debug("Fail");
+                return redirect()->back()->with('error', 'Failed to update record');
+            }
+        } catch (\Exception $e) {
+            // Exception handling
+            Log::debug("Exception >> " . $e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while updating the record');
+        }
+    }
+
+    public function deleteUser(Request $request)
+    {
+        // Get the updated data from the request
+        $updatedData = $request->except('_token');
+
+        // Specify the API endpoint URL
+        $apiUrl = 'localhost:8001/api/users/' . $request->input('id');
+
+        try {
+            Log::info("Deleted Data >> " . print_r($updatedData, true));
+            $response = Http::delete($apiUrl);
+
+            // Check the response and handle any errors or success messages accordingly
+            Log::info($response->getStatusCode());
+            if ($response->getStatusCode() === 200) {
+                // Success handling
+                Log::debug("Success");
+                return redirect()->back()->with('success', 'Record deleted successfully');
+            } else {
+                // Error handling
+                Log::debug("Fail");
+                return redirect()->back()->with('error', 'Failed to delete record');
+            }
+        } catch (\Exception $e) {
+            // Exception handling
+            Log::debug("Exception >> " . $e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while updating the record');
+        }
+    }
+
     public function createBook(Request $request)
     {
         // Get the updated data from the request

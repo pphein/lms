@@ -48,7 +48,7 @@ class AuthorRepository implements AuthorRepositoryInterface
     public function deleteAuthorById(int $id)
     {
         $result = $this->model::findOrFail($id)->update(['status' => StatusEnum::DELETED->value]);
-        Log::info("Deleted book >> " . $result . " author " . print_r($this->model::findOrFail($id), true));
+        Log::info("Deleted book >> " . $result . " author " . print_r($this->model::findOrFail($id)->toArray(), true));
         return $this->model::findOrFail($id)->refresh();
     }
 

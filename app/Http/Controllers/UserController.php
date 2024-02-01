@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Contracts\Services\UserServiceInterface;
 
 class UserController extends Controller
 {
     public function __construct(
-        private User $model
+        private UserServiceInterface $service
     ) {
     }
     /**
@@ -16,7 +16,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return $this->model->get();
+        $result = $this->service->getList();
+        return $result;
     }
 
     /**
@@ -32,7 +33,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->model->create($request->toArray());
+        Log::info("Create Request >> " . print_r($request->all(), true));
+        $this->service->createUser($request->toArray());
+
+        return view('home')->with('success', 'successfully created');
     }
 
     /**
@@ -40,7 +44,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        return $this->model->findOrFail($id);
+        return $this->service->getUserById($id);
     }
 
     /**
@@ -56,7 +60,10 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return $this->model->findOrFail($id)->update($request->toArray());
+        Log::info("request data >> " . print_r($request->toArray(), true));
+        $this->service->updateUserById($id, $request->toArray());
+
+        return view('home')->with('success', 'successfully updated');
     }
 
     /**
@@ -64,6 +71,8 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Log::info("User id to delete >> " . $id);
+        $this->service->destroyUserById($id);
+        return view('home')->with('success', 'successfully deleted');
     }
 }
