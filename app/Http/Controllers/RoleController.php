@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Services\RoleServiceInterface;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class RoleController extends Controller
 {
     public function __construct(
-        private Role $model
+        private RoleServiceInterface $service
     ) {
     }
     /**
@@ -16,7 +18,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return $this->model->get();
+        $result = $this->service->getList();
+        return $result;
     }
 
     /**
@@ -32,7 +35,10 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        return $this->model->create($request->toArray());
+        Log::info("Create Request >> " . print_r($request->all(), true));
+        $this->service->createRole($request->toArray());
+
+        return view('home')->with('success', 'successfully created');
     }
 
     /**
@@ -40,7 +46,7 @@ class RoleController extends Controller
      */
     public function show(string $id)
     {
-        return $this->model->findOrFail($id);
+        return $this->service->getRoleById($id);
     }
 
     /**
@@ -56,7 +62,10 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return $this->model->findOrFail($id)->update($request->toArray());
+        Log::info("request data >> " . print_r($request->toArray(), true));
+        $this->service->updateRoleById($id, $request->toArray());
+
+        return view('home')->with('success', 'successfully updated');
     }
 
     /**
@@ -64,6 +73,8 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Log::info("Role id to delete >> " . $id);
+        $this->service->destroyRoleById($id);
+        return view('home')->with('success', 'successfully deleted');
     }
 }

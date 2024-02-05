@@ -81,6 +81,8 @@
     </datalist>
     <datalist id="editionList">
     </datalist>
+    <datalist id="roleList">
+    </datalist>
     <section id="stats" class="pt-5 d-none">
         <div class="container mt-5">
             <h2 class="mb-4">Library Statistics</h2>
@@ -198,6 +200,28 @@
         </p>
     </div>
 </footer>
+<!-- Role script -->
+<script>
+    fetch('/api/roles')
+        .then(res => {
+            return res.json();
+        })
+        .then(data => {
+            suggestRoles(data.data);
+        })
+        .catch(error => {
+            console.log(error)
+        });
+
+    function suggestRoles(data) {
+        var userList = document.getElementById("roleList");
+        data.forEach(r => {
+            var option = document.createElement('option');
+            option.value = r.identifier;
+            userList.appendChild(option);
+        })
+    }
+</script>
 <!-- User Script -->
 <script>
     fetch('/api/users')
@@ -340,7 +364,7 @@
                                 <div class="row mb-4">
                                     <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
                                     <div class="col-md-8">
-                                        <input id="role" type="text" class="form-control" name="role" value="${obj.role}" autocomplete="current-role">
+                                        <input list="roleList" id="role" type="text" class="form-control" name="role" value="${obj.role}" autocomplete="current-role">
                                     </div>
                                 </div>
                                 <div class="row mb-4">
@@ -429,7 +453,7 @@
                                 <div class="row mb-4">
                                     <label for="role" class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
                                     <div class="col-md-8">
-                                        <input id="role" type="text" class="form-control" name="role" value="" autocomplete="current-role">
+                                        <input list="roleList" id="role" type="text" class="form-control" name="role" value="" autocomplete="current-role">
                                     </div>
                                 </div>
                                 <div class="row mb-4">

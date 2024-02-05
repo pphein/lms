@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
                 "name" => $user['name'],
                 "email" => $user['email'],
                 "password" => $user['password'],
-                "role" => $this->role->where('identifier', $user['role'])->first()?->id
+                "role_id" => $this->role->where('identifier', $user['role'])->first()?->id
             ];
             $this->model::firstOrCreate($data);
         }
